@@ -7,3 +7,4 @@ export * from "./templates";
 export * from "./pdf";
 export * from "./tailor-flow";
 export * from "./fake";
+export * from "./replies";
