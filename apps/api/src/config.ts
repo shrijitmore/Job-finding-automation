@@ -22,6 +22,8 @@ const EnvSchema = z.object({
   ANTHROPIC_API_KEY: z.string().optional(),
   CLAUDE_MODEL: z.string().default("claude-sonnet-5-5"),
   LLM_FAKE: z.string().optional(),
+  /** Optional URL of the worker's health endpoint. Pinged on Run now so a sleeping free-tier worker wakes up. */
+  WORKER_WAKE_URL: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
 });

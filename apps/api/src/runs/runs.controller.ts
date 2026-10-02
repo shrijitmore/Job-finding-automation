@@ -2,6 +2,8 @@ import { BadRequestException, Controller, Get, Inject, NotFoundException, Param,
 import { QUEUES, type PgBoss, type ProfileRunJob } from "@jfa/core";
 import { and, asc, desc, eq, runEvents, runs, sql, type Db } from "@jfa/db";
 import { CurrentUser, type SessionUser } from "../common/current-user";
+import { CONFIG, type AppConfig } from "../config";
+import { wakeWorker } from "../queue/wake";
 import { DB } from "../db/db.module";
 import { ProfilesService } from "../profiles/profiles.service";
 import { BOSS } from "../queue/queue.module";
@@ -11,6 +13,7 @@ export class RunsController {
   constructor(
     @Inject(DB) private readonly db: Db,
     @Inject(BOSS) private readonly boss: PgBoss,
+    @Inject(CONFIG) private readonly config: AppConfig,
     private readonly profiles: ProfilesService,
   ) {}
 
@@ -31,6 +34,7 @@ export class RunsController {
     const data: ProfileRunJob = { profileId, trigger: "manual", idempotencyKey: key };
     await this.db.insert(runs).values({ profileId, trigger: "manual", idempotencyKey: key, dryRun: profile.schedule.dryRun, status: "queued" });
     await this.boss.send(QUEUES.profileRun, data, { singletonKey: `${profileId}:${key}`, retryLimit: 2, retryDelay: 300, expireInSeconds: 3 * 3600 });
+    wakeWorker(this.config.WORKER_WAKE_URL);
     const [run] = await this.db.select().from(runs).where(and(eq(runs.profileId, profileId), eq(runs.idempotencyKey, key)));
     return run;
   }

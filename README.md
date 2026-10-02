@@ -18,7 +18,7 @@ It works for any profession: software, AI, Web3, product, design, video editing,
 - [Configuration](#configuration)
 - [Gmail OAuth setup](#gmail-oauth-setup)
 - [Telegram setup](#telegram-setup)
-- [Object storage (Cloudflare R2)](#object-storage-cloudflare-r2)
+- [Object storage (Google Cloud Storage or R2)](#object-storage-google-cloud-storage-or-r2)
 - [Hosting](#hosting)
 - [Sources](#sources)
 - [Tests](#tests)
@@ -154,7 +154,16 @@ The app sends application emails and reads replies only on threads it started. `
 
 You get a summary after every run and an alert when a reply needs you.
 
-## Object storage (Cloudflare R2)
+## Object storage (Google Cloud Storage or R2)
+
+### Google Cloud Storage (default for production)
+
+1. In the [Google Cloud console](https://console.cloud.google.com/storage), create a bucket (uniform access, not public).
+2. **IAM & Admin > Service accounts**: create a service account and grant it **Storage Object Admin** on that bucket.
+3. Create a JSON key for it.
+4. Set `GCS_BUCKET` and `GCS_CREDENTIALS_JSON` (paste the JSON, or `base64 -w0 key.json`) on the API and the worker. On GCP (Cloud Run, GKE) leave `GCS_CREDENTIALS_JSON` empty and grant the runtime service account access instead.
+
+### Cloudflare R2 or another S3-compatible store
 
 1. In Cloudflare, create an R2 bucket.
 2. Create an R2 API token with read and write access to that bucket.
@@ -166,7 +175,14 @@ Any S3-compatible store works (AWS S3, MinIO). Without these variables, files go
 
 You need three things: a Postgres database, the API (which can also serve the web app), and the worker.
 
-**Database**: create a free Postgres on [Neon](https://neon.tech) or [Supabase](https://supabase.com) and use its connection string as `DATABASE_URL`. Migrations run automatically when the API starts.
+**Database**: create a Postgres on [Supabase](https://supabase.com) (or Neon) and use its connection string as `DATABASE_URL`. On Supabase use **Connect > Session pooler** (port 5432 on `*.pooler.supabase.com`): Render has no IPv6 for the direct host, and the transaction pooler (port 6543) does not support the session features pg-boss uses. Migrations run automatically when the API starts.
+
+### Render (API and worker) + Vercel (web) — current production test setup
+
+1. **API on Render**: a Docker web service from [`deploy/api.Dockerfile`](deploy/api.Dockerfile). Health check path `/api/health`.
+2. **Worker on Render**: a Docker service from [`deploy/worker.Dockerfile`](deploy/worker.Dockerfile). As a background worker (paid) it runs cron schedules around the clock. It can also run as a web service (it answers health checks on `$PORT`); on the free plan it sleeps when idle, so set `WORKER_WAKE_URL` on the API to the worker's URL and Run now wakes it.
+3. **Web on Vercel**: import the repo with root directory `apps/web`. [`apps/web/vercel.json`](apps/web/vercel.json) builds the app and proxies `/api/*` to the Render API, so the browser only talks to the Vercel domain and the session cookie stays first-party. Change the rewrite destination if your API URL differs.
+4. Set `WEB_ORIGIN`, `API_PUBLIC_URL` (API) and `WEB_PUBLIC_URL` (worker) to the **Vercel** URL, and add `https://<vercel-domain>/api/gmail/callback` to the Google OAuth client.
 
 ### Render (recommended, one click)
 
