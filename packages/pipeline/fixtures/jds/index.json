@@ -1,0 +1,11 @@
+[
+  { "file": "software-backend.txt", "title": "Senior Backend Engineer", "company": "Ledgerly", "location": "Remote (India)", "field": "engineering", "applyEmail": null, "ats": "greenhouse", "atsJobId": "4011" },
+  { "file": "ai-engineer.txt", "title": "AI Engineer, LLM Applications", "company": "Northstar AI", "location": "Bengaluru, India (Hybrid)", "field": "ai", "applyEmail": null, "ats": "ashby", "atsJobId": "a1b2" },
+  { "file": "web3-solidity.txt", "title": "Smart Contract Engineer", "company": "Tidepool Finance", "location": "Remote", "field": "web3", "applyEmail": "jobs@tidepool.fi", "ats": null, "atsJobId": null },
+  { "file": "product-manager.txt", "title": "Product Manager, Payments", "company": "Kite Pay", "location": "Mumbai, India", "field": "product", "applyEmail": null, "ats": "lever", "atsJobId": "lv-77" },
+  { "file": "video-editor.txt", "title": "Video Editor (YouTube)", "company": "Brightside Media", "location": "Remote", "field": "video", "applyEmail": "hiring@brightside.media", "ats": null, "atsJobId": null },
+  { "file": "content-creator.txt", "title": "Content Creator, Short-form", "company": "Snack Labs", "location": "Remote", "field": "content", "applyEmail": null, "ats": null, "atsJobId": null },
+  { "file": "ai-content-creator.txt", "title": "AI Content Creator", "company": "Promptly Studio", "location": "Remote", "field": "content", "applyEmail": "create@promptly.studio", "ats": null, "atsJobId": null },
+  { "file": "product-designer.txt", "title": "Product Designer", "company": "Fable Health", "location": "Remote (EU time zones)", "field": "design", "applyEmail": null, "ats": "greenhouse", "atsJobId": "77881" },
+  { "file": "growth-marketer.txt", "title": "Growth Marketing Manager", "company": "Sprout CRM", "location": "Remote", "field": "marketing", "applyEmail": null, "ats": "lever", "atsJobId": "lv-12" }
+]

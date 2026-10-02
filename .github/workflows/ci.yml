@@ -37,9 +37,9 @@ jobs:
       - run: pnpm typecheck
       - name: Create worker test database
         run: PGPASSWORD=postgres psql -h localhost -U postgres -c "create database jfa_test_worker"
-      - run: pnpm test
       - name: Install Playwright browsers
         run: pnpm --filter @jfa/web exec playwright install --with-deps chromium
+      - run: pnpm test
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v4
         if: failure()

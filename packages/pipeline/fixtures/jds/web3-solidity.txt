@@ -1,0 +1,7 @@
+Tidepool Finance is a DeFi lending protocol on Ethereum and Base.
+
+You will write and audit Solidity smart contracts, build test suites in Foundry, and work with auditors before each launch.
+
+Requirements: 2+ years of Solidity, Foundry or Hardhat, deep understanding of the EVM, DeFi protocol experience. Familiarity with TypeScript and ethers.js for tooling.
+
+To apply, email jobs@tidepool.fi with your GitHub and a contract you are proud of.

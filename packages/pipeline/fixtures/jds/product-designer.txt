@@ -1,0 +1,11 @@
+Fable Health is a digital clinic. We are hiring a Product Designer to own patient onboarding.
+
+You'll
+- Run user research and usability tests
+- Design flows and high-fidelity UI in Figma
+- Maintain our design system with engineering
+
+You have
+- 3+ years of product design for web and mobile
+- A portfolio showing end-to-end product work (Dribbble or Behance links welcome)
+- Figma, prototyping, and basic HTML/CSS understanding

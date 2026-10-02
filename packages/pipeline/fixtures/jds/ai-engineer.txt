@@ -1,0 +1,12 @@
+Northstar AI helps support teams answer tickets with LLMs.
+
+Responsibilities
+- Build retrieval-augmented generation pipelines in Python and TypeScript
+- Evaluate prompts and models, set up offline eval suites
+- Ship features to production with our platform team
+
+Requirements
+- 3+ years of software engineering experience
+- Hands-on work with LLM APIs (Claude, OpenAI) and vector databases such as pgvector or Pinecone
+- Python, TypeScript
+Bonus: LangGraph, fine-tuning, MLOps

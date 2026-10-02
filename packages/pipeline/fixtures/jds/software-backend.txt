@@ -1,0 +1,13 @@
+Ledgerly builds accounting software for 40,000 small businesses.
+
+What you'll do
+- Design and ship services in TypeScript and Node.js on PostgreSQL
+- Own our GraphQL API and its performance
+- Improve reliability with Redis caching and queue-based workers
+- Mentor two mid-level engineers
+
+You have
+- 5+ years of backend experience
+- Strong TypeScript, Node.js and PostgreSQL
+- Experience with GraphQL at scale
+Nice to have: Kafka, Kubernetes, Go
