@@ -1,0 +1,30 @@
+{
+  "name": "job-finding-automation",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/**\" build && pnpm -r --filter \"./apps/**\" build",
+    "build:packages": "pnpm -r --filter \"./packages/**\" build",
+    "dev": "pnpm build:packages && pnpm -r --parallel --filter \"./apps/**\" dev",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "pnpm --filter @jfa/web test:e2e",
+    "lint": "pnpm -r lint",
+    "db:generate": "pnpm --filter @jfa/db generate",
+    "db:migrate": "pnpm --filter @jfa/db migrate"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "~5.7.2",
+    "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "@swc/core"]
+  }
+}
