@@ -13,6 +13,7 @@ import { ResumePage } from "@/pages/Resume";
 import { SchedulePage } from "@/pages/Schedule";
 import { SettingsPage } from "@/pages/Settings";
 import { SkillsPage } from "@/pages/Skills";
+import { SourcesPage } from "@/pages/Sources";
 import { StylePage } from "@/pages/Style";
 
 function RequireAuth({ children }: { children: ReactNode }) {
@@ -73,7 +74,7 @@ export function App() {
         <Route path="skills" element={<SkillsPage />} />
         <Route path="preferences" element={<PreferencesPage />} />
         <Route path="style" element={<StylePage />} />
-        <Route path="sources" element={<Placeholder title="Sources" />} />
+        <Route path="sources" element={<SourcesPage />} />
         <Route path="schedule" element={<SchedulePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>

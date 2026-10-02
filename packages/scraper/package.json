@@ -1,0 +1,34 @@
+{
+  "name": "@jfa/scraper",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --shims",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@jfa/core": "workspace:*",
+    "@jfa/shared": "workspace:*",
+    "cheerio": "^1.1.0",
+    "fast-xml-parser": "^5.2.0",
+    "playwright-core": "1.56.1",
+    "robots-parser": "^3.0.1",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0"
+  }
+}
