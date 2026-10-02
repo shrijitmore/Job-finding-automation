@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { KeyRound, Mail } from "lucide-react";
+import { KeyRound, Mail, Send } from "lucide-react";
 import { useSearchParams } from "react-router";
 import { useProfile } from "@/lib/profile";
 import { type FormEvent, useState } from "react";
@@ -8,6 +8,64 @@ import { api } from "@/lib/api";
 
 interface SettingsResponse {
   anthropic: { configured: boolean; source: "saved" | "env" | null; masked: string | null };
+  telegram: { configured: boolean; chatId: string | null; botToken: string | null };
+}
+
+function TelegramCard({ status }: { status: SettingsResponse["telegram"] }) {
+  const qc = useQueryClient();
+  const [botToken, setBotToken] = useState("");
+  const [chatId, setChatId] = useState(status.chatId ?? "");
+  const save = useMutation({
+    mutationFn: () => api.put("/settings/telegram", { botToken, chatId }),
+    onSuccess: () => {
+      setBotToken("");
+      qc.invalidateQueries({ queryKey: ["settings"] });
+    },
+  });
+  const test = useMutation({ mutationFn: () => api.post("/settings/telegram/test") });
+  const remove = useMutation({ mutationFn: () => api.delete("/settings/telegram"), onSuccess: () => qc.invalidateQueries({ queryKey: ["settings"] }) });
+  return (
+    <Card>
+      <CardHeader
+        title={<span className="inline-flex items-center gap-2"><Send className="size-4" /> Telegram</span>}
+        description="Run summaries and alerts for replies that need you. Create a bot with @BotFather, send it a message, then find your chat ID (see README)."
+        actions={status.configured ? <Badge tone="green">Chat {status.chatId}</Badge> : <Badge tone="amber">Not connected</Badge>}
+      />
+      <form
+        className="grid gap-3 p-4 sm:grid-cols-2 sm:p-5"
+        onSubmit={(e: FormEvent) => {
+          e.preventDefault();
+          save.mutate();
+        }}
+      >
+        <Field label="Bot token" hint={status.botToken ? `Saved: ${status.botToken}` : undefined}>
+          <Input type="password" autoComplete="off" placeholder="123456:ABC..." value={botToken} onChange={(e) => setBotToken(e.target.value)} />
+        </Field>
+        <Field label="Chat ID">
+          <Input placeholder="123456789" value={chatId} onChange={(e) => setChatId(e.target.value)} />
+        </Field>
+        <div className="flex flex-wrap gap-2 sm:col-span-2">
+          <Button type="submit" loading={save.isPending} disabled={!botToken || !chatId}>
+            Save
+          </Button>
+          {status.configured && (
+            <>
+              <Button type="button" variant="secondary" loading={test.isPending} onClick={() => test.mutate()}>
+                Send test message
+              </Button>
+              <Button type="button" variant="ghost" loading={remove.isPending} onClick={() => remove.mutate()}>
+                Remove
+              </Button>
+            </>
+          )}
+          {test.isSuccess && <span className="self-center text-sm text-emerald-600">Sent. Check Telegram.</span>}
+        </div>
+        <div className="sm:col-span-2">
+          <ErrorNote error={save.error ?? test.error ?? remove.error} />
+        </div>
+      </form>
+    </Card>
+  );
 }
 
 interface GmailStatus {
@@ -86,6 +144,7 @@ export function SettingsPage() {
       <PageHeader title="Settings" description="Keys and connections. Secrets are encrypted at rest and never shown again in full." />
       <div className="space-y-5">
         <GmailCard />
+        <TelegramCard status={data.telegram} />
         <Card>
           <CardHeader
             title={<span className="inline-flex items-center gap-2"><KeyRound className="size-4" /> Claude API key</span>}

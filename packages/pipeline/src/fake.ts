@@ -68,5 +68,22 @@ export function pipelineFakeHandlers(): Record<string, FakeHandler> {
     tailor_retry: tailor,
     validate: () => ({ passed: true, issues: [] }),
     job_extract: () => ({ jobs: [] }),
+    reply_classify: (req) => {
+      const text = textOf(req).toLowerCase();
+      const category = /interview|call|chat|schedule/.test(text)
+        ? "interview_scheduling"
+        : /salary|compensation|ctc/.test(text)
+          ? "salary_question"
+          : /assignment|take-home|test task|assessment/.test(text)
+            ? "assessment"
+            : /unfortunately|not moving forward|other candidates/.test(text)
+              ? "rejection"
+              : /portfolio|work samples|reel/.test(text)
+                ? "portfolio_request"
+                : /resume|cv/.test(text)
+                  ? "resume_request"
+                  : "other";
+      return { category, confidence: 0.9, summary: `Recruiter message: ${category}`, suggested_reply: "Thanks for reaching out. I will confirm my availability shortly." };
+    },
   };
 }

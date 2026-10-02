@@ -7,7 +7,9 @@ import { LlmFactory } from "./llm/llm.factory";
 import { GmailMailerFactory, MAILER_FACTORY } from "./mail/mailer";
 import { ATS_SUBMITTER, ApplyService } from "./run/apply.service";
 import { PlaywrightAtsSubmitter } from "./run/ats.submitter";
-import { NotifyService, ReplyService } from "./run/hooks";
+import { NotifyService } from "./run/notify.service";
+import { ReplyService } from "./run/reply.service";
+import { NOTIFIER_FACTORY, TelegramNotifierFactory } from "./notify/telegram.factory";
 import { ProfileRunService } from "./run/profile-run.service";
 import { SchedulerService } from "./run/scheduler.service";
 import { RunSteps } from "./run/steps.service";
@@ -15,6 +17,7 @@ import { RunSteps } from "./run/steps.service";
 export interface WorkerOverrides {
   mailerFactory?: Provider;
   atsSubmitter?: Provider;
+  notifierFactory?: Provider;
   /** Skip queue consumers and cron sync (tests drive services directly). */
   noConsumers?: boolean;
 }
@@ -34,6 +37,7 @@ export class WorkerModule {
         NotifyService,
         ProfileRunService,
         overrides.mailerFactory ?? { provide: MAILER_FACTORY, useClass: GmailMailerFactory },
+        overrides.notifierFactory ?? { provide: NOTIFIER_FACTORY, useClass: TelegramNotifierFactory },
         overrides.atsSubmitter ??
           (config.ATS_FORMS_ENABLED ? { provide: ATS_SUBMITTER, useClass: PlaywrightAtsSubmitter } : { provide: ATS_SUBMITTER, useValue: null }),
         ...(overrides.noConsumers ? [] : [ScanProcessor, SchedulerService]),
