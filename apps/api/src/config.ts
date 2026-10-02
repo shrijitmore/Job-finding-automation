@@ -20,6 +20,8 @@ const EnvSchema = z.object({
     .transform((v) => v !== "false"),
   COOKIE_SECURE: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
+  CLAUDE_MODEL: z.string().default("claude-sonnet-5-5"),
+  LLM_FAKE: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
 });

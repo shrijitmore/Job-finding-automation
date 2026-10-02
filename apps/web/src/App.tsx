@@ -7,7 +7,13 @@ import { api } from "@/lib/api";
 import type { AuthStatus } from "@/lib/types";
 import { LoginPage } from "@/pages/Login";
 import { Placeholder } from "@/pages/Placeholder";
+import { PreferencesPage } from "@/pages/Preferences";
 import { ProfilesPage } from "@/pages/Profiles";
+import { ResumePage } from "@/pages/Resume";
+import { SchedulePage } from "@/pages/Schedule";
+import { SettingsPage } from "@/pages/Settings";
+import { SkillsPage } from "@/pages/Skills";
+import { StylePage } from "@/pages/Style";
 
 function RequireAuth({ children }: { children: ReactNode }) {
   const { data, isLoading } = useQuery({ queryKey: ["auth"], queryFn: () => api.get<AuthStatus>("/auth/status") });
@@ -63,13 +69,13 @@ export function App() {
         <Route path="applications" element={<Placeholder title="Applications" />} />
         <Route path="inbox" element={<Placeholder title="Inbox" />} />
         <Route path="runs" element={<Placeholder title="Run logs" />} />
-        <Route path="resume" element={<Placeholder title="Resume" />} />
-        <Route path="skills" element={<Placeholder title="Skills" />} />
-        <Route path="preferences" element={<Placeholder title="Job preferences" />} />
-        <Route path="style" element={<Placeholder title="Writing style" />} />
+        <Route path="resume" element={<ResumePage />} />
+        <Route path="skills" element={<SkillsPage />} />
+        <Route path="preferences" element={<PreferencesPage />} />
+        <Route path="style" element={<StylePage />} />
         <Route path="sources" element={<Placeholder title="Sources" />} />
-        <Route path="schedule" element={<Placeholder title="Schedule & limits" />} />
-        <Route path="settings" element={<Placeholder title="Settings" />} />
+        <Route path="schedule" element={<SchedulePage />} />
+        <Route path="settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
