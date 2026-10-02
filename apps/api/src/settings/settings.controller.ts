@@ -1,6 +1,9 @@
 import { BadRequestException, Body, Controller, Delete, Get, Post, Put } from "@nestjs/common";
 import { maskSecret, sendTelegram, type TelegramConfig } from "@jfa/core";
 import { z } from "zod";
+import { Inject } from "@nestjs/common";
+import { and, eq, gte, profiles, sql, tokenUsage, type Db } from "@jfa/db";
+import { DB } from "../db/db.module";
 import { CurrentUser, type SessionUser } from "../common/current-user";
 import { ZodPipe } from "../common/zod.pipe";
 import { CredentialsService } from "./credentials.service";
@@ -13,7 +16,31 @@ const TelegramSchema = z.object({
 
 @Controller("settings")
 export class SettingsController {
-  constructor(private readonly credentials: CredentialsService) {}
+  constructor(
+    private readonly credentials: CredentialsService,
+    @Inject(DB) private readonly db: Db,
+  ) {}
+
+  /** Claude token usage and cost per profile and purpose over the last N days. */
+  @Get("usage")
+  async usage(@CurrentUser() user: SessionUser) {
+    const since = new Date(Date.now() - 30 * 86_400_000);
+    return this.db
+      .select({
+        profileId: profiles.id,
+        profileName: profiles.name,
+        purpose: tokenUsage.purpose,
+        calls: sql<number>`count(*)::int`,
+        inputTokens: sql<number>`sum(${tokenUsage.inputTokens})::int`,
+        outputTokens: sql<number>`sum(${tokenUsage.outputTokens})::int`,
+        costUsd: sql<number>`sum(${tokenUsage.costUsd})::float`,
+      })
+      .from(tokenUsage)
+      .innerJoin(profiles, eq(profiles.id, tokenUsage.profileId))
+      .where(and(eq(profiles.userId, user.id), gte(tokenUsage.createdAt, since)))
+      .groupBy(profiles.id, profiles.name, tokenUsage.purpose)
+      .orderBy(profiles.name, tokenUsage.purpose);
+  }
 
   @Get()
   async get(@CurrentUser() user: SessionUser) {

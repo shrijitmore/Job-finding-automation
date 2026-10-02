@@ -9,4 +9,4 @@
 | 5 | Email apply, pg-boss scheduling, DRY_RUN end to end, dashboard | Done |
 | 6 | Playwright form apply for Greenhouse, Lever and Ashby | Done |
 | 7 | Reply handler, Inbox, Telegram | Done |
-| 8 | Run logs, settings, deploy configs, full README | Planned |
+| 8 | Run logs, settings, deploy configs, full README | Done |
