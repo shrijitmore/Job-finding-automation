@@ -5,6 +5,7 @@ import { useProfile } from "@/lib/profile";
 import { type FormEvent, useState } from "react";
 import { Badge, Button, Card, CardHeader, ErrorNote, Field, Input, PageHeader, PageLoader } from "@/components/ui";
 import { api } from "@/lib/api";
+import { formatUsd } from "@/lib/format";
 
 interface SettingsResponse {
   anthropic: { configured: boolean; source: "saved" | "env" | null; masked: string | null };
@@ -119,6 +120,54 @@ function GmailCard() {
   );
 }
 
+interface UsageRow {
+  profileId: string;
+  profileName: string;
+  purpose: string;
+  calls: number;
+  inputTokens: number;
+  outputTokens: number;
+  costUsd: number;
+}
+
+function UsageCard() {
+  const { data } = useQuery({ queryKey: ["usage"], queryFn: () => api.get<UsageRow[]>("/settings/usage") });
+  const total = (data ?? []).reduce((s, r) => s + r.costUsd, 0);
+  return (
+    <Card>
+      <CardHeader title="Claude usage, last 30 days" description={`Total ${formatUsd(total)} across all profiles.`} />
+      {data?.length ? (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead className="text-xs uppercase tracking-wide text-zinc-500">
+              <tr>
+                <th className="px-4 py-2 font-medium sm:px-5">Profile</th>
+                <th className="px-4 py-2 font-medium">Step</th>
+                <th className="px-4 py-2 text-right font-medium">Calls</th>
+                <th className="px-4 py-2 text-right font-medium">Tokens</th>
+                <th className="px-4 py-2 text-right font-medium sm:px-5">Cost</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
+              {data.map((r) => (
+                <tr key={`${r.profileId}-${r.purpose}`}>
+                  <td className="px-4 py-2 sm:px-5">{r.profileName}</td>
+                  <td className="px-4 py-2 text-zinc-500">{r.purpose.replace(/_/g, " ")}</td>
+                  <td className="px-4 py-2 text-right tabular-nums">{r.calls}</td>
+                  <td className="px-4 py-2 text-right tabular-nums">{(r.inputTokens + r.outputTokens).toLocaleString()}</td>
+                  <td className="px-4 py-2 text-right tabular-nums sm:px-5">{formatUsd(r.costUsd)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="p-4 text-sm text-zinc-500 sm:p-5">No Claude calls yet.</p>
+      )}
+    </Card>
+  );
+}
+
 export function SettingsPage() {
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({ queryKey: ["settings"], queryFn: () => api.get<SettingsResponse>("/settings") });
@@ -174,6 +223,7 @@ export function SettingsPage() {
             <ErrorNote error={saveKey.error ?? removeKey.error} />
           </div>
         </Card>
+        <UsageCard />
       </div>
     </>
   );

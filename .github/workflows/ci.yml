@@ -47,3 +47,20 @@ jobs:
           name: playwright-report
           path: apps/web/playwright-report
           retention-days: 7
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        image: [api, worker]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/${{ matrix.image }}.Dockerfile
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

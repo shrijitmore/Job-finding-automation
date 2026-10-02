@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.vite
+**/test-results
+**/playwright-report
+storage-local
+.git
+.env
+.env.*

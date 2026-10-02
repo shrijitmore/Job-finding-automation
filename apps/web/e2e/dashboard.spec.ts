@@ -55,6 +55,19 @@ test("dry run end to end: run now, dashboard, applications and detail", async ({
   await page.getByRole("tab", { name: "Fit" }).click();
   await expect(page.getByText("Matched skills")).toBeVisible();
 
+  // Run logs show timings, counts, cost and events.
+  await page.goto(`/p/${profileId}/runs`);
+  await page.getByRole("link", { name: /succeeded/ }).first().click();
+  await expect(page.getByText("Step timings")).toBeVisible();
+  await expect(page.getByText("Claude cost")).toBeVisible();
+  await expect(page.getByText(/\[dry run\] Would apply to Senior Backend Engineer/)).toBeVisible();
+  await expect(page.getByText("Summary sent to Telegram")).toBeVisible();
+
+  // Settings shows token usage per profile.
+  await page.goto(`/p/${profileId}/settings`);
+  await expect(page.getByText("Claude usage, last 30 days")).toBeVisible();
+  await expect(page.getByRole("cell", { name: "tailor", exact: true })).toBeVisible();
+
   // Manual apply shows a direct link and can be marked as applied.
   await page.goto(`/p/${profileId}/applications?status=manual_apply`);
   await page.getByRole("link", { name: "Backend Developer" }).first().click();

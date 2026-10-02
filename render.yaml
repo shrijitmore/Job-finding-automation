@@ -1,0 +1,71 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Creates the API (which also serves the web app) and the worker.
+# Bring your own Postgres (Neon or Supabase) and set DATABASE_URL on both services.
+services:
+  - type: web
+    name: jfa-api
+    runtime: docker
+    dockerfilePath: ./deploy/api.Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OWNER_EMAIL
+        sync: false
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: ALLOW_SETUP
+        value: "false"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: API_PUBLIC_URL
+        sync: false
+      - key: WEB_ORIGIN
+        sync: false
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+  - type: worker
+    name: jfa-worker
+    runtime: docker
+    dockerfilePath: ./deploy/worker.Dockerfile
+    dockerContext: .
+    plan: starter
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: WEB_PUBLIC_URL
+        sync: false
+      - key: MIGRATE_ON_START
+        value: "false"
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false

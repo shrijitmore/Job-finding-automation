@@ -1,0 +1,5 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": { "builder": "DOCKERFILE", "dockerfilePath": "deploy/api.Dockerfile" },
+  "deploy": { "healthcheckPath": "/api/health", "restartPolicyType": "ON_FAILURE" }
+}
