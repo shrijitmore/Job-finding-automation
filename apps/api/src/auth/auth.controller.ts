@@ -15,6 +15,8 @@ const CredentialsSchema = z.object({
 type Credentials = z.infer<typeof CredentialsSchema>;
 
 const SESSION_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 30;
+/** Login and setup attempts allowed per minute per IP. */
+const AUTH_LIMIT = Number(process.env.AUTH_RATE_LIMIT ?? 10);
 
 @Controller("auth")
 export class AuthController {
@@ -34,7 +36,7 @@ export class AuthController {
   }
 
   @Public()
-  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  @Throttle({ default: { limit: AUTH_LIMIT, ttl: 60_000 } })
   @Post("setup")
   async setup(@Body(new ZodPipe(CredentialsSchema)) body: Credentials, @Res({ passthrough: true }) res: Response) {
     const user = await this.auth.setupOwner(body.email, body.password);
@@ -43,7 +45,7 @@ export class AuthController {
   }
 
   @Public()
-  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @Throttle({ default: { limit: AUTH_LIMIT, ttl: 60_000 } })
   @Post("login")
   @HttpCode(200)
   async login(@Body(new ZodPipe(CredentialsSchema)) body: Credentials, @Res({ passthrough: true }) res: Response) {

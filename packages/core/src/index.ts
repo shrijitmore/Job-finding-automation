@@ -6,3 +6,4 @@ export * from "./fake-llm";
 export * from "./resume";
 export * from "./fixtures";
 export * from "./fake-handlers";
+export * from "./gmail";

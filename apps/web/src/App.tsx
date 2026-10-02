@@ -5,6 +5,9 @@ import { AppShell, useProfiles } from "@/components/AppShell";
 import { PageLoader } from "@/components/ui";
 import { api } from "@/lib/api";
 import type { AuthStatus } from "@/lib/types";
+import { ApplicationDetailPage } from "@/pages/ApplicationDetail";
+import { ApplicationsPage } from "@/pages/Applications";
+import { DashboardPage } from "@/pages/Dashboard";
 import { LoginPage } from "@/pages/Login";
 import { Placeholder } from "@/pages/Placeholder";
 import { PreferencesPage } from "@/pages/Preferences";
@@ -66,8 +69,9 @@ export function App() {
         }
       >
         <Route index element={<Navigate to="dashboard" replace />} />
-        <Route path="dashboard" element={<Placeholder title="Dashboard" />} />
-        <Route path="applications" element={<Placeholder title="Applications" />} />
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="applications" element={<ApplicationsPage />} />
+        <Route path="applications/:appId" element={<ApplicationDetailPage />} />
         <Route path="inbox" element={<Placeholder title="Inbox" />} />
         <Route path="runs" element={<Placeholder title="Run logs" />} />
         <Route path="resume" element={<ResumePage />} />

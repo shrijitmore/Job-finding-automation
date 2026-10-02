@@ -1,4 +1,5 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { QUEUES, type PgBoss } from "@jfa/core";
 import { and, asc, eq, profiles, type Db, type Profile } from "@jfa/db";
 import {
   DEFAULT_PREFERENCES,
@@ -10,6 +11,7 @@ import {
   type StyleRules,
 } from "@jfa/shared";
 import { DB } from "../db/db.module";
+import { BOSS } from "../queue/queue.module";
 
 export interface ProfilePatch {
   name?: string;
@@ -22,7 +24,15 @@ export interface ProfilePatch {
 
 @Injectable()
 export class ProfilesService {
-  constructor(@Inject(DB) private readonly db: Db) {}
+  constructor(
+    @Inject(DB) private readonly db: Db,
+    @Inject(BOSS) private readonly boss: PgBoss,
+  ) {}
+
+  /** Asks the worker to rebuild cron schedules. Coalesced so bursts of edits send one job. */
+  private async resyncSchedules(): Promise<void> {
+    await this.boss.send(QUEUES.syncSchedules, {}, { singletonKey: "sync", singletonSeconds: 5 }).catch(() => undefined);
+  }
 
   list(userId: string): Promise<Profile[]> {
     return this.db.select().from(profiles).where(eq(profiles.userId, userId)).orderBy(asc(profiles.createdAt));
@@ -64,11 +74,13 @@ export class ProfilesService {
       })
       .where(eq(profiles.id, profileId))
       .returning();
+    if (patch.schedule || onboarded) await this.resyncSchedules();
     return row;
   }
 
   async remove(userId: string, profileId: string): Promise<void> {
     await this.get(userId, profileId);
     await this.db.delete(profiles).where(eq(profiles.id, profileId));
+    await this.resyncSchedules();
   }
 }
