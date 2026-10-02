@@ -7,6 +7,7 @@ import { ConfigModule } from "./config.module";
 import { DbModule } from "./db/db.module";
 import { HealthController } from "./health.controller";
 import { ProfilesModule } from "./profiles/profiles.module";
+import { SettingsModule } from "./settings/settings.module";
 
 @Module({})
 export class AppModule {
@@ -18,6 +19,7 @@ export class AppModule {
         ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
         DbModule,
         AuthModule,
+        SettingsModule,
         ProfilesModule,
       ],
       controllers: [HealthController],
