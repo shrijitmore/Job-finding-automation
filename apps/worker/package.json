@@ -21,6 +21,7 @@
     "zod": "^4.1.0"
   },
   "devDependencies": {
+    "@jfa/scraper": "workspace:^",
     "@nestjs/testing": "^11.1.0",
     "@swc/core": "^1.10.0",
     "unplugin-swc": "^1.5.1"

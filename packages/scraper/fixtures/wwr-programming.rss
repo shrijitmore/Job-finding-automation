@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss">
+  <channel>
+    <title>We Work Remotely: Remote jobs in design, programming, marketing and more</title>
+    <link>https://weworkremotely.com/categories/remote-programming-jobs.rss</link>
+    <description>We Work Remotely: Remote jobs in design, programming, marketing and more</description>
+    <language>en-US</language>
+    <ttl>60</ttl>
+    <item>
+      <title>Samsara: Staff Software Engineer</title>
+      <region>Anywhere in the World</region>
+      <category>Full-Stack Programming</category>
+      <description>
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; Remote
+    &lt;br /&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;a href="https://www.samsara.com/"&gt;https://www.samsara.com/&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;About the role:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Samsara (NYSE: IOT) sits at the center of hardware, software, AI, and the physical world. The platform processes 25+ trillion data points annually from IoT sensors, cameras, and connected devices across thousands of organizations, and that dataset is compounding: it grew from 4 trillion to 25+ trillion in four years. We're still early in turning that data into the products that will define how physical operations run, and we're hiring the engineers who will build what comes next.&lt;/p&gt;
+&lt;p&gt;We're approaching ~$2B ARR growing 30%+ year over year, with 96% of our largest customers on two or more products. The fastest-growing divisions at Samsara are tackling the hardest, most ambiguous problems at the company: building new products from scratch, applying AI and ML to massive real-world datasets, and shipping capabilities that change how organizations maintain equipment, manage fleets, and run day-to-day operations. Most of this work is zero-to-one, at billion-dollar scale.&lt;/p&gt;
+&lt;p&gt;We're looking for software engineers who want to define what ships next. Leveling is broad and flexible: we're hiring from Senior through Staff+, across platform and product, and we're open to shaping scope around the right person's strengths and interests. That window won't stay open long.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This role is remote and open to candidates residing in the US. Relocation assistance will not be provided for this role.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You should apply if:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;You want to impact the industries that run our world.&lt;/strong&gt;&amp;nbsp;The software you build will have real-world stakes: helping keep the lights on, getting food into grocery stores, keeping workers safe. What ships here isn't metrics on a dashboard. It shows up on the loading dock, the job site, and the dispatch floor.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You want to build, not maintain.&lt;/strong&gt;&amp;nbsp;Samsara is in full growth mode. We're building new systems from scratch, not babysitting old ones. You'd own entire problem spaces end to end, with the autonomy to set direction from day one.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You want to work where AI meets the physical world.&lt;/strong&gt;&amp;nbsp;Samsara has spent a decade building the largest proprietary dataset for physical operations. More connected assets generate more data, more data trains better models, better models drive more value, and more value wins more assets. The market and the opportunity here are what set us apart, not just the models.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You believe customers are more than a number.&lt;/strong&gt;&amp;nbsp;Samsara engineers have a rare closeness to end users. You'll participate in customer interviews, collaborate with product managers and customer success, and use that context to build products that solve real problems operators face every day.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;You have the curiosity and drive to figure it out.&lt;/strong&gt;&amp;nbsp;We're looking for people who take pride in their work and get things done at all costs. The engineers who thrive here don't wait to be told what to build. They define it, ship it, and own the outcome. The rate-limiting step on our teams isn't tooling or process. It's ambition.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;In this role, you will:&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Take ownership of technically complex, mission-critical areas and run with them. We want to point you in a direction and show up to the demo meeting impressed, not spend our weeks managing the details.&lt;/li&gt;
+&lt;li&gt;Define and drive technical strategy for new products and platform capabilities, from backend services and APIs to the customer-facing UI.&lt;/li&gt;
+&lt;li&gt;Design and ship full-stack features end to end. You'll work across backend, frontend, and potentially mobile to deliver AI-powered products that solve real operational problems.&lt;/li&gt;
+&lt;li&gt;Partner with product, design, and customer-facing teams to translate ambiguous, real-world problems into clear technical plans and measurable outcomes.&lt;/li&gt;
+&lt;li&gt;Build and scale the systems behind AI-driven products, including data ingestion, APIs, and the workflows that put intelligence into the hands of operators.&lt;/li&gt;
+&lt;li&gt;Raise the bar for the engineers around you through code reviews, design reviews, technical mentorship, and by setting a standard for quality, velocity, and craft.&lt;/li&gt;
+&lt;li&gt;Champion, role model, and embed Samsara’s cultural principles (Focus on Customer Success, Build for the Long Term, Adopt a Growth Mindset, Be Inclusive, Win as a Team) as we scale globally and across new offices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Minimum requirements for the role:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bachelor's degree in Computer Science, Engineering, or equivalent practical experience.&lt;/li&gt;
+&lt;li&gt;8+ years of experience in software design and development, including building and operating production systems at scale.&lt;/li&gt;
+&lt;li&gt;Strong full-stack fundamentals. You're comfortable working across backend services, APIs, and frontend (web or mobile) to ship complete products.&lt;/li&gt;
+&lt;li&gt;Proficiency in modern languages and frameworks (Go, Python, TypeScript/JavaScript, React, or similar).&lt;/li&gt;
+&lt;li&gt;Demonstrated experience leading cross-team or cross-org projects from inception through rollout, including managing ambiguity, driving alignment, and delivering measurable impact.&lt;/li&gt;
+&lt;li&gt;Experience building AI-powered or data-driven products. You don't need to train models, but you know how to take AI capabilities and turn them into products customers love.&lt;/li&gt;
+&lt;li&gt;Strong communication skills and the ability to translate between technical and non-technical stakeholders.&lt;/li&gt;
+&lt;li&gt;A track record of building: zero-to-one products, systems you left in a meaningfully better place, or hard problems you refused to let stay unsolved.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;An ideal candidate also has:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Experience shipping AI-powered features in production, whether that's LLM-based products, agentic workflows, recommendation systems, or other customer-facing AI.&lt;/li&gt;
+&lt;li&gt;Comfort with modern AI-augmented development workflows (Cursor, LLMs, etc.) to multiply your output and accelerate delivery.&lt;/li&gt;
+&lt;li&gt;Background working with real-world operational data (telematics, sensor data, work orders, inspections) or a strong interest in learning the domain.&lt;/li&gt;
+&lt;li&gt;A proven track record of mentoring senior engineers and influencing engineering culture, standards, and best practices beyond a single team.&lt;/li&gt;
+&lt;li&gt;Side projects, open-source contributions, or other signals of curiosity and drive outside the scope of your day job.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="content-pay-transparency"&gt;
+&lt;div class="pay-input"&gt;
+&lt;div class="description"&gt;
+&lt;p&gt;The range of annual base salary for full-time employees for this position is below. Please note that base pay offered may vary depending on factors including your city of residence, job-related knowledge, skills, and experience. This role is also eligible for an initial RSU grant with no vesting cliff, and ongoing refresh opportunities tied to performance, subject to plan terms and conditions. Learn more about our total rewards and benefits below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="title"&gt;Annual Base Salary&lt;/div&gt;
+&lt;div class="pay-range"&gt;$162,400&lt;span class="divider"&gt;—&lt;/span&gt;$290,000 USD&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="content-conclusion"&gt;
+&lt;p&gt;&lt;strong&gt;Total Rewards&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At Samsara, we build for the people who keep the global economy moving. We want owners, not passengers, which is why&amp;nbsp;&lt;a href="https://www.samsara.com/company/careers/benefits"&gt;our rewards&lt;/a&gt;&amp;nbsp;are designed to fuel high-impact builders. Our compensation program delivers above-market total compensation through a combination of base salary, performance-based bonus/variable pay, and equity (for eligible roles) in a high-growth public company. We meaningfully differentiate pay for our top performers, who have the opportunity to earn above-market compensation that can outpace the broader market over time.&lt;/p&gt;
+&lt;p&gt;Beyond compensation, we provide the foundations that enable long-term success: a flexible, employee-led remote model, a professional development stipend, comprehensive health and parental leave plans, and more. If you’re ready to build for the long term and own the outcome, your journey starts here.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Flexible Working&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At Samsara, we embrace a flexible working model that caters to the diverse needs of our teams. Our offices are open for those who prefer to work in-person and we also support remote work where it aligns with our operational requirements. For certain positions, being close to one of our offices or within a specific geographic area is important to facilitate collaboration, access to resources, or alignment with our service regions. In these cases, the job description will clearly indicate any working location requirements. Our goal is to ensure that all members of our team can contribute effectively, whether they are working on-site, in a hybrid model, or fully remotely. All offers of employment are contingent upon an individual’s ability to secure and maintain the legal right to work at the company and in the specified work location, if applicable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Belonging at Samsara&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;At Samsara, we welcome everyone regardless of their background. All qualified applicants will receive consideration for employment without regard to race, color, religion, national origin, sex, gender, gender identity, sexual orientation, protected veteran status, disability, age, and other characteristics protected by law. We depend on the unique approaches of our team members to help us solve complex problems and want to ensure that Samsara is a place where people from all backgrounds can make an impact.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer"&gt;https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Mon, 17 Aug 2026 13:57:14 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer</guid>
+      <link>https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer</link>
+    </item>
+<item>
+      <media:content url="https://wwr-pro.s3.amazonaws.com/logos/0018/9370/logo.gif" type="image/png"/>
+      <title>Sticker Mule: AI agent engineer</title>
+      <region>Anywhere in the World</region>
+      <category>Full-Stack Programming</category>
+      <description>&lt;img src="https://we-work-remotely.imgix.net/logos/0018/9370/logo.gif?ixlib=rails-4.0.0&amp;w=50&amp;h=50&amp;dpr=2&amp;fit=fill&amp;auto=compress" /&gt;
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; New York, NY
+    &lt;br /&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;a href="https://www.stickermule.com"&gt;https://www.stickermule.com&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div class="_descriptionText_5yu8i_201 ashby-job-posting-description"&gt;
+&lt;p&gt;Sticker Mule is building the most lucrative commerce platform on the Internet by combining software, manufacturing, and AI in one stack.&lt;/p&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+&lt;p&gt;We're hiring an engineer to build, run and manage a team of AI agents to help us innovate faster, improve performance, and better serve customers.&lt;/p&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Work performed&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Identify where agents can help and build them accordingly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Work with department leads to assess AI needs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Help connect agents to appropriate third-party and internal tools.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Measure results and remove agents that don't deliver.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test new tools and models as they ship and adopt what works.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Advise others on AI capabilities to help them perform.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Experience building agents that run on their own and do meaningful work&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Strong with Grok, Claude, OpenAI, and open source&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Comfortable in Go, TypeScript, GraphQL, Postgres, GCP&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Writes clearly in English&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Compensation&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Salary: $150,000–$250,000 USD&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$20,000 signing bonus&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4 weeks vacation + country-specific holidays&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fully remote&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/sticker-mule-ai-agent-engineer"&gt;https://weworkremotely.com/remote-jobs/sticker-mule-ai-agent-engineer&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Wed, 16 Sep 2026 12:24:17 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/sticker-mule-ai-agent-engineer</guid>
+      <link>https://weworkremotely.com/remote-jobs/sticker-mule-ai-agent-engineer</link>
+    </item>
+<item>
+      <media:content url="https://wwr-pro.s3.amazonaws.com/logos/0171/6373/logo.gif" type="image/png"/>
+      <title>AccuLynx: Senior Software Engineer </title>
+      <region>Anywhere in the World</region>
+      <category>Full-Stack Programming</category>
+      <description>&lt;img src="https://we-work-remotely.imgix.net/logos/0171/6373/logo.gif?ixlib=rails-4.0.0&amp;w=50&amp;h=50&amp;dpr=2&amp;fit=fill&amp;auto=compress" /&gt;
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; Beloit, WI 
+    &lt;br /&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;a href="http://acculynx.com"&gt;http://acculynx.com&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;h2&gt;&lt;strong&gt;Senior Software Engineer&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;AccuLynx is a fast-growing SaaS provider of business management software for roofing contractors. With more than 10 years in the business and impressive year-over-year revenue growth, we have quickly established ourselves as the leading software product in this multi-billion dollar industry.&lt;/p&gt;
+&lt;p&gt;AccuLynx is actively looking for smart and passionate Senior Software Engineers to join our growing Engineering team! We are headquartered out of Beloit, WI and would love to have you join us for major planning sessions and meetings, but this role has the option to be remote. We do not hire based on buzzwords or popular acronyms. We expect you to have mastered at least one language and be eager to master any technology or language in the future. If you want to be part of a collaborative team committed to providing a best-in-class software user experience, please read on!&lt;/p&gt;
+&lt;p&gt;What You Will Do:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Support Engineering team in delivering well-written, well-tested code to complete new features or address issues in the product&lt;/li&gt;
+&lt;li&gt;Collaborate on the design, implementation, testing and review of new features and fixes&lt;/li&gt;
+&lt;li&gt;Review code and contribute feedback to improve the quality, readability, and testability of the code base across Engineering&lt;/li&gt;
+&lt;li&gt;Architect, design, develop, deploy and operate services that serve AccuLynx’s thousands of users&lt;/li&gt;
+&lt;li&gt;Use Agile process to experiment and improve on software development practices at AccuLynx&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;What might you work on?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Implement real time communication tools to connect our customers.&lt;/li&gt;
+&lt;li&gt;Create a fast and responsive work-scheduling application for use in the field.&lt;/li&gt;
+&lt;li&gt;Build an automation platform so our customers can customize their workflow to reduce wasted movement.&lt;/li&gt;
+&lt;li&gt;Solve advanced mapping and geolocation problems.&lt;/li&gt;
+&lt;li&gt;Build out our public RESTful API.&lt;/li&gt;
+&lt;li&gt;Review junior Engineering team members’ work for accuracy and provide coaching and feedback&lt;/li&gt;
+&lt;li&gt;Perform other related duties as assigned&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Your Qualifications:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Top notch coding skills&lt;/li&gt;
+&lt;li&gt;7-10 years of software development experience&lt;/li&gt;
+&lt;li&gt;7+ years of full-stack web development: frontend, backend and database&lt;/li&gt;
+&lt;li&gt;Smart and gets things done&lt;/li&gt;
+&lt;li&gt;Excellent written, verbal and interpersonal communication skills&lt;/li&gt;
+&lt;li&gt;Belief that performance is a feature&lt;/li&gt;
+&lt;li&gt;Experience with our stack: Vue.js, C#, Sql Server, Redis, ElasticSearch, Git&lt;/li&gt;
+&lt;li&gt;Confidence you will make a difference in our product&lt;/li&gt;
+&lt;li&gt;Leverages AI-powered development tools (e.g., GitHub Copilot, Claude Code) to accelerate coding, testing, and debugging workflows while maintaining high code quality standards&lt;/li&gt;
+&lt;li&gt;Actively evaluates and integrates emerging AI coding assistants into the team's development process, sharing best practices to improve overall engineering velocity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bonus Points If You Have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Familiarity with Agile methodologies.&lt;/li&gt;
+&lt;li&gt;Understanding of HTML5 and mobile responsive development.&lt;/li&gt;
+&lt;li&gt;Contributions to OSS projects or Stackoverflow.&lt;/li&gt;
+&lt;li&gt;Availability for after hours support. We work at a sustainable 40h/week pace but sometimes things go bump in the night.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Why We Love AccuLynx:&lt;/p&gt;
+&lt;p&gt;AccuLynx’s success as the #1 business management software for roofing contractors over the past 11 years is thanks to us investing in our employees, maintaining company values and focusing on a strong company culture. Our positive work environment has allowed us to retain employees that have been with us since our company’s inception and has provided the solid groundwork for us to develop an industry-leading product while exceeding our customer’s expectations. Because of our commitment to our company values and culture, we were recently officially recognized as a Great Place to Work Certified™ organization, with 90% of our employees naming AccuLynx as a great place to work.&lt;/p&gt;
+&lt;p&gt;We’re proud to regularly be recognized for software, product and company culture achievements. Our team’s shared belief in AccuLynx's mission promotes a culture of collaboration, innovation and fun. We have built a benefits program to match the strength of our team. This program includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Attractive compensation packages&lt;/li&gt;
+&lt;li&gt;Flexible paid time off - 3 weeks off in your first year!&lt;/li&gt;
+&lt;li&gt;Competitive health coverage (medical, dental, vision)&lt;/li&gt;
+&lt;li&gt;401K matching and safe harbor contributions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Our Interview Process:&lt;/p&gt;
+&lt;p&gt;We do not hire based on buzzwords or popular acronyms. We expect you to be a master of your domain and be eager to learn any technology or language in the future. We aim to reply to your application within a week of receiving it. Our interview process consists of several stages, each one allowing us get to know you better, professionally and technically. It is also an opportunity for you to gain a better understanding of our culture and the work we do at AccuLynx. The stages include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CV, open source code, or public portfolio review&lt;/li&gt;
+&lt;li&gt;Phone interview with HR team&lt;/li&gt;
+&lt;li&gt;Face to Face conversation with a few members of your team.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Applicants must be able to work legally within the United States. Please, no 3rd party inquiries.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;AccuLynx is an Equal Opportunity Employer committed to inclusion and employing a diverse workforce. All applicants will receive consideration without regard to race, color, religion, sex, national origin, age, sexual orientation, gender identity, gender expression, veteran status, disability, or other legally protected characteristics.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/acculynx-senior-software-engineer"&gt;https://weworkremotely.com/remote-jobs/acculynx-senior-software-engineer&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 15 Sep 2026 14:12:47 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/acculynx-senior-software-engineer</guid>
+      <link>https://weworkremotely.com/remote-jobs/acculynx-senior-software-engineer</link>
+    </item>
+<item>
+      <title>Toptal: Senior Data Engineer – AWS Data Lake &amp; Pipeline Architecture </title>
+      <region>Anywhere in the World</region>
+      <category>Full-Stack Programming</category>
+      <description>
+
+&lt;p&gt;
+  &lt;strong&gt;Headquarters:&lt;/strong&gt; 
+&lt;/p&gt;
+
+&lt;p&gt;Summary&lt;br&gt;We are seeking a Data Engineer to support the development of a Data Intelligence Platform. This role focuses on data modeling, data services, data pipelines, and cloud-based data infrastructure for reporting, analytics, and data science.&lt;/p&gt;&lt;p&gt;General information&lt;br&gt;This Data Engineer will support data-related operations across a broader Data Intelligence Platform team. The work includes building and consuming web services, integrating search technologies, supporting personalization and recommendation engines, and applying data engineering best practices across the platform.&lt;/p&gt;&lt;p&gt;The role spans cloud-based data architecture, database performance, pipeline automation, and support for data scientists, researchers, and internal business units. The environment includes AWS-based infrastructure and a mix of structured and unstructured data sources.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Tasks and Deliverables&lt;/strong&gt;&lt;br&gt;- Participate in the architecture design and implementation of high-performance, scalable, and optimized data solutions.&lt;br&gt;- Create data models from scratch using strong SQL fundamentals.&lt;br&gt;- Write and optimize in-application SQL statements.&lt;br&gt;- Ensure the performance, security, and availability of databases.&lt;br&gt;- Prepare documentation and technical specifications.&lt;br&gt;- Handle database procedures such as upgrades, backups, recovery, and migration.&lt;br&gt;- Profile server resource usage and optimize configurations as necessary.&lt;br&gt;- Design, build, and automate the deployment of data pipelines and applications.&lt;br&gt;- Integrate data from on-premise databases and external data sources using REST APIs and harvesting tools.&lt;br&gt;- Collaborate with business units and data science teams on data access, transformation, processing, and reporting needs.&lt;br&gt;- Support implementation, technical issues, and training related to the data lake ecosystem.&lt;br&gt;- Work with the team to manage AWS resources, including EMR and ECS clusters.&lt;br&gt;- Support provisioning, monitoring, configuration, and maintenance of AWS tools.&lt;br&gt;- Evaluate and promote new cloud technologies that improve capabilities and lower operating costs.&lt;br&gt;- Support automation efforts using Infrastructure as Code with Terraform and CI/CD tools such as Jenkins.&lt;br&gt;- Work with the team to implement data governance, access control, and security risk reduction.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Required experience&lt;/strong&gt;&lt;br&gt;- 7-9 years of experience designing and developing cloud-based data models, ETL pipelines, and infrastructure.&lt;br&gt;- Experience working with both structured and unstructured data.&lt;br&gt;- Strong proficiency with SQL across popular databases.&lt;br&gt;- Experience optimizing large, complex SQL statements.&lt;br&gt;- Knowledge of best practices for relational databases.&lt;br&gt;- Experience configuring database engines and orchestrating clusters.&lt;br&gt;- Ability to plan resource requirements from high-level specifications.&lt;br&gt;- Ability to troubleshoot common database issues.&lt;br&gt;- Experience with Spark, Glue, EMR, and Apache Kafka or AWS Kinesis.&lt;br&gt;- Experience with version control tools such as Git or Subversion.&lt;br&gt;- Experience using automated build systems and CI/CD workflows.&lt;br&gt;- Experience programming in Java, Python, and Scala.&lt;br&gt;- Knowledge of data structures and algorithms.&lt;br&gt;- Knowledge of relational, NoSQL, graph, document, key-value, and time-series databases.&lt;br&gt;- Knowledge of scalable data model design and management.&lt;br&gt;- Knowledge of ML model deployment.&lt;br&gt;- Knowledge of AWS cloud platforms.&lt;br&gt;- Knowledge of TDD and BDD.&lt;br&gt;- Strong interest in improving software development skills, frameworks, and technologies.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Engagement highlights&lt;/strong&gt;&lt;br&gt;- Opportunity to work across data modeling, data services, and data science within a broader Data Intelligence Platform.&lt;br&gt;- Exposure to a varied technical environment spanning AWS, ETL pipelines, databases, search technologies, and recommendation systems.&lt;br&gt;- Direct collaboration with data science teams and internal stakeholders on reporting, transformation, and platform capabilities.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To apply:&lt;/strong&gt; &lt;a href="https://weworkremotely.com/remote-jobs/toptal-senior-data-engineer-aws-data-lake-pipeline-architecture"&gt;https://weworkremotely.com/remote-jobs/toptal-senior-data-engineer-aws-data-lake-pipeline-architecture&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 15 Sep 2026 12:53:09 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/toptal-senior-data-engineer-aws-data-lake-pipeline-architecture</guid>
+      <link>https://weworkremotely.com/remote-jobs/toptal-senior-data-engineer-aws-data-lake-pipeline-architecture</link>
+    </item>
+  </channel>
+</rss>
