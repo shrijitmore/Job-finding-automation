@@ -8,7 +8,7 @@ import type { RunContext } from "./run-context";
 
 /** Submits to an ATS form. Phase 6 registers Greenhouse, Lever and Ashby handlers. */
 export interface AtsSubmitter {
-  submit(input: { ctx: RunContext; app: Application; job: Job; pdf: Buffer }): Promise<{ screenshot?: Buffer; status: "applied" | "manual"; reason?: string }>;
+  submit(input: { ctx: RunContext; app: Application; job: Job; pdf: Buffer }): Promise<{ screenshot?: Buffer; status: "applied" | "manual" | "unconfirmed"; reason?: string }>;
 }
 
 export const ATS_SUBMITTER = Symbol("ATS_SUBMITTER");
@@ -121,6 +121,12 @@ export class ApplyService {
           if (res.status === "applied") {
             await this.set(app.id, { status: "applied", applyTarget: target, appliedAt: new Date(), screenshotKey });
             tally.applied++;
+          } else if (res.status === "unconfirmed") {
+            // The form was submitted but we could not see a confirmation. Never retried.
+            await this.set(app.id, { status: "failed", applyTarget: target, screenshotKey, error: res.reason ?? "Submission not confirmed" });
+            await ctx.log.error("apply", `${job.company}: ${res.reason}`, { jobId: job.id });
+            tally.failed++;
+            continue;
           } else {
             await this.set(app.id, { status: "manual_apply", applyTarget: target, skipReason: res.reason ?? null, screenshotKey });
             tally.manual++;

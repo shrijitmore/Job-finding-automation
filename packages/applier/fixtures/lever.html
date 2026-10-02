@@ -1,0 +1,15 @@
+<!doctype html><html><head><title>Ledgerly - Backend Engineer</title></head>
+<body><div class="application-page">
+<form method="post" action="/submit/lever" enctype="multipart/form-data">
+  <ul>
+  <li class="application-question"><div class="application-label">Resume/CV<span class="required">✱</span></div><div class="application-field"><input type="file" name="resume" required></div></li>
+  <li class="application-question"><div class="application-label">Full name<span class="required">✱</span></div><div class="application-field"><input type="text" name="name" required></div></li>
+  <li class="application-question"><div class="application-label">Email<span class="required">✱</span></div><div class="application-field"><input type="email" name="email" required></div></li>
+  <li class="application-question"><div class="application-label">Phone</div><div class="application-field"><input type="text" name="phone"></div></li>
+  <li class="application-question"><div class="application-label">Current company</div><div class="application-field"><input type="text" name="org"></div></li>
+  <li class="application-question"><div class="application-label">GitHub URL</div><div class="application-field"><input type="text" name="urls[GitHub]"></div></li>
+  <li class="application-question"><div class="application-label">Portfolio URL</div><div class="application-field"><input type="text" name="urls[Portfolio]"></div></li>
+  <li class="application-question"><div class="application-label">Additional information</div><div class="application-field"><textarea name="comments"></textarea></div></li>
+  </ul>
+  <button type="submit" class="postings-btn">Submit application</button>
+</form></div></body></html>

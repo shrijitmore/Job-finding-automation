@@ -15,6 +15,11 @@ const EnvSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
   TELEGRAM_BOT_TOKEN: z.string().optional(),
+  /** Fill Greenhouse, Lever and Ashby forms. When off, those jobs become manual apply. */
+  ATS_FORMS_ENABLED: z
+    .string()
+    .default("true")
+    .transform((v) => v !== "false"),
   /** Max jobs scored per run, newest first. Bounds Claude cost. */
   MAX_SCORE_PER_RUN: z.coerce.number().default(40),
   /** Random delay range between applications. */

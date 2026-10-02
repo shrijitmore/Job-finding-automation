@@ -1,0 +1,31 @@
+{
+  "name": "@jfa/applier",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --shims",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@jfa/shared": "workspace:*",
+    "playwright-core": "1.56.1"
+  },
+  "devDependencies": {
+    "@jfa/core": "workspace:*",
+    "@jfa/pipeline": "workspace:*",
+    "tsup": "^8.5.0"
+  }
+}

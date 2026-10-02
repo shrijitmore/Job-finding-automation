@@ -1,0 +1,18 @@
+<!doctype html><html><head><title>Job Application for Senior Backend Engineer at Ledgerly</title></head>
+<body><main>
+<h1>Senior Backend Engineer</h1><p>Ledgerly · Remote</p>
+<button type="button" id="apply_button" onclick="document.getElementById('application').style.display='block'">Apply</button>
+<form id="application" method="post" action="/submit/greenhouse" enctype="multipart/form-data" style="display:none">
+  <div class="field"><label for="first_name">First Name*</label><input id="first_name" name="job_application[first_name]" required></div>
+  <div class="field"><label for="last_name">Last Name*</label><input id="last_name" name="job_application[last_name]" required></div>
+  <div class="field"><label for="email">Email*</label><input id="email" type="email" name="job_application[email]" required></div>
+  <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" name="job_application[phone]"></div>
+  <div class="field"><label for="resume">Resume/CV*</label><input id="resume" type="file" name="job_application[resume]" required></div>
+  <div class="field"><label for="q1">LinkedIn Profile</label><input id="q1" name="job_application[answers][0][text_value]"></div>
+  <div class="field"><label for="q2">Website</label><input id="q2" name="job_application[answers][1][text_value]"></div>
+  <div class="field"><label for="q3">How many years of professional experience do you have?*</label>
+    <select id="q3" name="job_application[answers][2][answer]" required><option value=""></option><option>0-2 years</option><option>3-5 years</option><option>6+ years</option></select></div>
+  <div class="field"><label for="q4">Gender</label><select id="q4" name="gender"><option></option><option>Decline to self-identify</option></select></div>
+  <div class="field"><label><input type="checkbox" name="consent" required> I agree to the privacy policy*</label></div>
+  <button type="submit">Submit Application</button>
+</form></main></body></html>

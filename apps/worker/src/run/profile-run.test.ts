@@ -5,6 +5,7 @@ import { DEFAULT_PREFERENCES, DEFAULT_SCHEDULE, DEFAULT_STYLE_RULES } from "@jfa
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { MAILER_FACTORY, type Mailer } from "../mail/mailer";
 import { TEST_DATABASE_URL, createWorker, fixtureServer, resetDatabase } from "../test-utils";
+import { ATS_SUBMITTER, type AtsSubmitter } from "./apply.service";
 import { ProfileRunService } from "./profile-run.service";
 
 const now = new Date();
@@ -46,9 +47,22 @@ describe("profile run (LangGraph pipeline)", () => {
   let end: () => Promise<void>;
   let server: Awaited<ReturnType<typeof fixtureServer>>;
   const mailer = new FakeMailer();
+  const atsCalls: string[] = [];
+  const ats: AtsSubmitter = {
+    async submit({ job }) {
+      atsCalls.push(job.company);
+      return { status: "applied", screenshot: Buffer.from("\x89PNG fake") };
+    },
+  };
 
   beforeAll(async () => {
-    worker = await createWorker({}, { mailerFactory: { provide: MAILER_FACTORY, useValue: { forProfile: async () => mailer } } });
+    worker = await createWorker(
+      {},
+      {
+        mailerFactory: { provide: MAILER_FACTORY, useValue: { forProfile: async () => mailer } },
+        atsSubmitter: { provide: ATS_SUBMITTER, useValue: ats },
+      },
+    );
     svc = worker.get(ProfileRunService);
     const h = createDb(TEST_DATABASE_URL, { max: 2 });
     db = h.db;
@@ -65,6 +79,7 @@ describe("profile run (LangGraph pipeline)", () => {
   beforeEach(async () => {
     await resetDatabase();
     mailer.sent = [];
+    atsCalls.length = 0;
   });
 
   async function setup(opts: { dryRun: boolean; dailyCap?: number }) {
@@ -107,6 +122,7 @@ describe("profile run (LangGraph pipeline)", () => {
       expect(byCompany.Ledgerly.validation).toMatchObject({ passed: true, attempts: 1, pageCount: 1 });
       expect(byCompany.Ledgerly.coverNote).toContain("Ledgerly");
       expect(mailer.sent).toHaveLength(0);
+      expect(atsCalls).toHaveLength(0);
 
       expect(run!.stats).toMatchObject({ fetched: 5, newJobs: 5, filtered: 4, scored: 4, shortlisted: 3, tailored: 3, dryRun: 2, manual: 1 });
       expect(Object.keys(run!.timings)).toEqual(expect.arrayContaining(["replies", "fetch", "filter", "score", "tailor", "apply", "notify"]));
@@ -137,8 +153,12 @@ describe("profile run (LangGraph pipeline)", () => {
       expect(mail.text).not.toMatch(/[–—]/);
       const [sent] = await db.select().from(applications).where(eq(applications.applyTarget, "jobs@ledgerly.io"));
       expect(sent).toMatchObject({ status: "applied", gmailThreadId: "thread-1" });
-      // ATS form filling is not enabled in this phase, so Greenhouse falls back to manual.
-      expect(run!.stats).toMatchObject({ applied: 1, manual: 2 });
+      // Greenhouse goes through the form filler and stores the confirmation screenshot.
+      expect(run!.stats).toMatchObject({ applied: 2, manual: 1 });
+      expect(atsCalls).toEqual(["Payflow"]);
+      const [form] = await db.select().from(applications).where(eq(applications.applyChannel, "greenhouse"));
+      expect(form).toMatchObject({ status: "applied" });
+      expect(form.screenshotKey).toMatch(/confirmation\.png$/);
 
       // Simulate a crash mid-submit on a retried run: the claimed application is never re-sent.
       await db.update(applications).set({ status: "ready" }).where(eq(applications.id, sent.id));

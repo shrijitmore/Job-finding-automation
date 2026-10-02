@@ -1,0 +1,14 @@
+<!doctype html><html><head><title>Application - Ledgerly</title></head>
+<body><div id="root"></div>
+<script>
+  // Ashby renders its form client-side.
+  document.getElementById("root").innerHTML = `
+  <form method="post" action="/submit/ashby" enctype="multipart/form-data">
+    <div class="_fieldEntry"><label for="_systemfield_name" class="ashby-application-form-question-title">Name*</label><input id="_systemfield_name" name="_systemfield_name" required></div>
+    <div class="_fieldEntry"><label for="_systemfield_email">Email*</label><input id="_systemfield_email" name="_systemfield_email" type="email" required></div>
+    <div class="_fieldEntry"><label for="_systemfield_resume">Resume*</label><input id="_systemfield_resume" name="_systemfield_resume" type="file" required></div>
+    <div class="_fieldEntry"><label for="loc">Location</label><input id="loc" name="location"></div>
+    <div class="_fieldEntry"><label for="why">Why are you interested in Ledgerly?</label><textarea id="why" name="why"></textarea></div>
+    <button type="submit">Submit Application</button>
+  </form>`;
+</script></body></html>
