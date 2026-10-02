@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@jfa/applier": "workspace:^",
     "@jfa/core": "workspace:*",
     "@jfa/db": "workspace:*",
     "@jfa/pipeline": "workspace:^",
