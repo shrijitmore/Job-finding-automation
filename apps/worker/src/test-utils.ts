@@ -4,7 +4,7 @@ import type { AddressInfo } from "node:net";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { createDb, sql, users } from "@jfa/db";
 import { loadConfig } from "./config";
-import { WorkerModule } from "./worker.module";
+import { WorkerModule, type WorkerOverrides } from "./worker.module";
 
 export const TEST_DATABASE_URL =
   process.env.TEST_WORKER_DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/jfa_test_worker";
@@ -17,17 +17,19 @@ export async function resetDatabase(): Promise<void> {
   await pool.end();
 }
 
-export async function createWorker(env: Record<string, string> = {}): Promise<TestingModule> {
+export async function createWorker(env: Record<string, string> = {}, overrides: WorkerOverrides = {}): Promise<TestingModule> {
   const config = loadConfig({
     DATABASE_URL: TEST_DATABASE_URL,
     ENCRYPTION_KEY: "test-encryption-key-1234567890",
     LLM_FAKE: "1",
     SCRAPE_MIN_DELAY_MS: "0",
     SCRAPE_MAX_DELAY_MS: "0",
+    APPLY_MIN_DELAY_MS: "0",
+    APPLY_MAX_DELAY_MS: "0",
     LOCAL_STORAGE_DIR: "/tmp/jfa-worker-test-storage",
     ...env,
   } as NodeJS.ProcessEnv);
-  const moduleRef = await Test.createTestingModule({ imports: [WorkerModule.forRoot(config)] }).compile();
+  const moduleRef = await Test.createTestingModule({ imports: [WorkerModule.forRoot(config, { noConsumers: true, ...overrides })] }).compile();
   await moduleRef.init();
   return moduleRef;
 }

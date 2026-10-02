@@ -12,6 +12,14 @@ const EnvSchema = z.object({
   SCRAPE_MAX_DELAY_MS: z.coerce.number().default(5000),
   WORKER_CONCURRENCY: z.coerce.number().default(1),
   LLM_FAKE: z.string().optional(),
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
+  TELEGRAM_BOT_TOKEN: z.string().optional(),
+  /** Max jobs scored per run, newest first. Bounds Claude cost. */
+  MAX_SCORE_PER_RUN: z.coerce.number().default(40),
+  /** Random delay range between applications. */
+  APPLY_MIN_DELAY_MS: z.coerce.number().default(20_000),
+  APPLY_MAX_DELAY_MS: z.coerce.number().default(90_000),
 });
 
 export type WorkerConfig = z.infer<typeof EnvSchema>;

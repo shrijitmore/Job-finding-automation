@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { ClaudeLlm, FakeLlm, decryptJson, defaultFakeHandlers, type LlmClient, type LlmUsage } from "@jfa/core";
+import { ClaudeLlm, FakeLlm, decryptJson, type LlmClient, type LlmUsage } from "@jfa/core";
+import { pipelineFakeHandlers } from "@jfa/pipeline";
 import { and, credentials, eq, isNull, runs, sql, tokenUsage, type Db } from "@jfa/db";
 import { CONFIG, type WorkerConfig } from "../config";
 import { DB } from "../infra.module";
@@ -29,7 +30,7 @@ export class LlmFactory {
   /** Returns a client that records every call's tokens and cost against the run and profile, or null if no key. */
   async create(scope: UsageScope): Promise<LlmClient | null> {
     const onUsage = (u: LlmUsage) => this.record(scope, u);
-    if (this.config.LLM_FAKE === "1") return new FakeLlm(defaultFakeHandlers(), onUsage);
+    if (this.config.LLM_FAKE === "1") return new FakeLlm(pipelineFakeHandlers(), onUsage);
     const key = await this.apiKey(scope.userId);
     if (!key) return null;
     return new ClaudeLlm({ apiKey: key, model: this.config.CLAUDE_MODEL, onUsage });

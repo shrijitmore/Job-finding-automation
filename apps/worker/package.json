@@ -13,7 +13,10 @@
   "dependencies": {
     "@jfa/core": "workspace:*",
     "@jfa/db": "workspace:*",
+    "@jfa/pipeline": "workspace:^",
     "@jfa/shared": "workspace:*",
+    "@langchain/core": "^1.0.0",
+    "@langchain/langgraph": "^1.0.0",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "reflect-metadata": "^0.2.2",

@@ -1,10 +1,11 @@
 import { AlertTriangle, Plus, X } from "lucide-react";
-import { useMemo, type ReactNode } from "react";
+import { useMemo } from "react";
+import { RunNowButton } from "@/components/RunNowButton";
 import { SaveBar } from "@/components/SaveBar";
 import { Button, Card, CardHeader, Field, Input, PageHeader, PageLoader, Select, Switch } from "@/components/ui";
 import { useSectionForm } from "@/lib/useSectionForm";
 
-export function SchedulePage({ extraActions }: { extraActions?: ReactNode }) {
+export function SchedulePage() {
   const form = useSectionForm("schedule");
   const zones = useMemo(() => {
     try {
@@ -19,7 +20,7 @@ export function SchedulePage({ extraActions }: { extraActions?: ReactNode }) {
 
   return (
     <>
-      <PageHeader title="Schedule and limits" description="When this profile runs and how much it may send." actions={extraActions} />
+      <PageHeader title="Schedule and limits" description="When this profile runs and how much it may send." actions={form.profile ? <RunNowButton profileId={form.profile.id} dryRun={form.profile.schedule.dryRun} /> : undefined} />
       <div className="space-y-5">
         <Card className={s.dryRun ? "" : "ring-red-300 dark:ring-red-900"}>
           <CardHeader title="Mode" />
