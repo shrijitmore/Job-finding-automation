@@ -1,0 +1,6 @@
+Sprout CRM is a CRM for small agencies. As Growth Marketing Manager you'll own paid acquisition and lifecycle email.
+
+- Plan and run campaigns on Google Ads and Meta
+- Build lifecycle flows in HubSpot
+- Run A/B tests and report CAC and payback
+Requirements: 4+ years in growth or performance marketing at a B2B SaaS company, comfort with SQL or spreadsheets, and HubSpot.

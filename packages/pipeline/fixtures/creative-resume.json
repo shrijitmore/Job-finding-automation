@@ -1,0 +1,22 @@
+{
+  "contact": { "name": "Ravi Kumar", "email": "ravi@example.com", "phone": "+91 90000 00000", "location": "Pune, India", "headline": "Video Editor and Motion Designer" },
+  "summary": "Video editor for YouTube channels in finance and tech. Cuts long-form and Shorts in Premiere Pro with After Effects motion graphics.",
+  "yearsOfExperience": 4,
+  "experience": [
+    { "id": "exp-1", "title": "Lead Video Editor", "company": "Northwind Media", "location": "Remote", "startDate": "Mar 2022", "endDate": "Present",
+      "bullets": ["Edited 150 YouTube videos with 30M total views in Adobe Premiere Pro", "Built a motion graphics template library in After Effects that cut edit time by 30%", "Cut 3 Shorts a day for a channel that grew from 50K to 400K subscribers"] },
+    { "id": "exp-2", "title": "Video Editor", "company": "Studio Kaya", "location": "Pune, India", "startDate": "Jan 2020", "endDate": "Feb 2022",
+      "bullets": ["Edited brand films and ads for 20 clients", "Color graded footage in DaVinci Resolve"] }
+  ],
+  "projects": [
+    { "id": "proj-1", "name": "Money Minutes", "description": "Personal finance explainer series", "url": "https://youtube.com/@moneyminutes", "bullets": ["Scripted and edited 40 episodes"], "skills": ["Premiere Pro", "After Effects"] }
+  ],
+  "education": [ { "id": "edu-1", "institution": "MIT Institute of Design", "degree": "B.Des", "field": "Communication Design", "startDate": "2015", "endDate": "2019", "details": "" } ],
+  "skills": ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Photoshop", "Storytelling", "Sound design"],
+  "metrics": ["150 YouTube videos", "30M total views", "30%", "50K to 400K subscribers", "20 clients", "40 episodes"],
+  "portfolioLinks": [
+    { "kind": "youtube", "url": "https://youtube.com/@ravicuts", "label": "YouTube reel" },
+    { "kind": "behance", "url": "https://behance.net/ravikumar", "label": "Behance" }
+  ],
+  "certifications": []
+}

@@ -1,0 +1,8 @@
+Kite Pay is building UPI payments for merchants.
+
+As Product Manager, Payments you will own the checkout and refunds roadmap, work with engineering and design, run discovery with merchants, and define success metrics.
+
+Requirements
+- 4+ years of product management, ideally in fintech or payments
+- Comfortable with SQL and analytics tools such as Amplitude or Mixpanel
+- Clear written communication; experience writing PRDs
