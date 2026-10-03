@@ -8,7 +8,7 @@ import { api } from "@/lib/api";
 import { formatUsd } from "@/lib/format";
 
 interface SettingsResponse {
-  llm: { provider: "anthropic" | "vertex"; model: string };
+  llm: { provider: "anthropic" | "gemini" | "vertex"; model: string };
   anthropic: { configured: boolean; source: "saved" | "env" | null; masked: string | null };
   telegram: { configured: boolean; chatId: string | null; botToken: string | null };
 }
@@ -195,11 +195,11 @@ export function SettingsPage() {
       <div className="space-y-5">
         <GmailCard />
         <TelegramCard status={data.telegram} />
-        {data.llm?.provider === "vertex" ? (
+        {data.llm && data.llm.provider !== "anthropic" ? (
           <Card>
             <CardHeader
               title={<span className="inline-flex items-center gap-2"><KeyRound className="size-4" /> AI model</span>}
-              description="Gemini on Google Cloud Vertex AI, using the server's service account. Used for parsing, scoring, tailoring, validation and reply classification."
+              description={`Gemini ${data.llm.provider === "gemini" ? "API, using the server's API key" : "on Google Cloud Agent Platform, using the server's service account"}. Used for parsing, scoring, tailoring, validation and reply classification.`}
               actions={<Badge tone="green">{data.llm.model}</Badge>}
             />
           </Card>
