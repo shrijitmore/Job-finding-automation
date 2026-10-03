@@ -102,6 +102,7 @@ describe("profile run (LangGraph pipeline)", () => {
     return { profile, close: srv.close };
   }
 
+  // First test to render PDFs: on a fresh CI runner Chromium's cold start alone can take 20s+.
   it("runs the full pipeline in dry run without sending anything", async () => {
     const { profile, close } = await setup({ dryRun: true });
     try {
@@ -139,7 +140,7 @@ describe("profile run (LangGraph pipeline)", () => {
     } finally {
       await close();
     }
-  });
+  }, 90_000);
 
   it("sends email applications in live mode exactly once, even when retried after a crash", async () => {
     const { profile, close } = await setup({ dryRun: false });
