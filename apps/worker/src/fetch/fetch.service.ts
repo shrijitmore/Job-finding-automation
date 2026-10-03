@@ -88,6 +88,7 @@ export class FetchService {
       cache,
       maxListings: config.maxListings ?? 40,
       maxDetails: 15,
+      detailBudgetMs: this.config.SCRAPE_DETAIL_BUDGET_MS,
       isKnown: async (url) => {
         const [row] = await this.db.select({ id: jobs.id }).from(jobs).where(eq(jobs.canonicalUrl, canonicalUrl(url)));
         return Boolean(row);

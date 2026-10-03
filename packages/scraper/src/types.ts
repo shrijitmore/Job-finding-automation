@@ -48,6 +48,10 @@ export interface ScrapeContext {
   maxListings: number;
   /** Max detail pages to fetch for this source. */
   maxDetails: number;
+  /** Stop following detail pages after this long (ms); later listings keep their summary. */
+  detailBudgetMs?: number;
+  /** Injectable clock for tests. */
+  now?: () => number;
   /** True when a job with this URL is already stored, so its detail page is skipped. */
   isKnown(url: string): Promise<boolean>;
 }
