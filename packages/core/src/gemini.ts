@@ -3,11 +3,13 @@ import { z } from "zod";
 import { LlmError, type LlmClient, type LlmRequest, type LlmUsage } from "./llm";
 import { decodeCredentials } from "./storage";
 
-export const DEFAULT_VERTEX_MODEL = "gemini-2.5-flash-lite";
+export const DEFAULT_VERTEX_MODEL = "gemini-3.1-flash-lite";
 
-/** USD per million tokens, list prices for Vertex AI. Unknown models fall back by family. */
+/** USD per million tokens, list prices. Unknown models fall back by family. */
 const GEMINI_PRICING: Array<[RegExp, { input: number; output: number }]> = [
-  [/flash-lite/, { input: 0.1, output: 0.4 }],
+  [/2\.5-flash-lite/, { input: 0.1, output: 0.4 }],
+  [/3\.1-flash-lite/, { input: 0.25, output: 1.5 }],
+  [/flash-lite/, { input: 0.3, output: 2.5 }],
   [/flash/, { input: 0.3, output: 2.5 }],
   [/pro/, { input: 1.25, output: 10 }],
 ];

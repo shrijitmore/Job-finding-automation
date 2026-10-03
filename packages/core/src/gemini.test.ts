@@ -21,6 +21,7 @@ describe("toGeminiSchema", () => {
 describe("geminiCostUsd", () => {
   it("prices Flash-Lite per million tokens", () => {
     expect(geminiCostUsd("gemini-2.5-flash-lite", 1_000_000, 1_000_000)).toBeCloseTo(0.5);
+    expect(geminiCostUsd("gemini-3.1-flash-lite", 1_000_000, 1_000_000)).toBeCloseTo(1.75);
     expect(geminiCostUsd("gemini-2.5-flash", 1_000_000, 0)).toBeCloseTo(0.3);
   });
 });
