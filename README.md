@@ -175,7 +175,7 @@ Any S3-compatible store works (AWS S3, MinIO). Without these variables, files go
 
 You need three things: a Postgres database, the API (which can also serve the web app), and the worker.
 
-**Database**: create a Postgres on [Supabase](https://supabase.com) (or Neon) and use its connection string as `DATABASE_URL`. On Supabase use **Connect > Session pooler** (port 5432 on `*.pooler.supabase.com`): Render has no IPv6 for the direct host, and the transaction pooler (port 6543) does not support the session features pg-boss uses. Migrations run automatically when the API starts.
+**Database**: create a Postgres on [Supabase](https://supabase.com) (or Neon) and use its connection string as `DATABASE_URL`. On Supabase use **Connect > Session pooler** (port 5432 on `*.pooler.supabase.com`): Render has no IPv6 for the direct host, and the transaction pooler (port 6543) does not support the session features pg-boss uses. Append `?sslmode=no-verify`: Supabase signs with its own CA, which `sslmode=require` rejects (the connection is still encrypted). A dedicated login role for the app is recommended over the `postgres` user; Supabase's pooler accepts it as `role.project-ref`. Migrations run automatically when the API starts.
 
 ### Render (API and worker) + Vercel (web) — current production test setup
 

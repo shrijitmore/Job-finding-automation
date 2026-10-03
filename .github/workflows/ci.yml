@@ -41,6 +41,16 @@ jobs:
         run: pnpm --filter @jfa/web exec playwright install --with-deps chromium
       - run: pnpm test
       - run: pnpm test:e2e
+      - name: Boot production bundles
+        # Catches dependencies that only exist in dev installs (devDependencies are dropped by --prod).
+        run: |
+          pnpm --filter @jfa/api deploy --prod /tmp/api-prod
+          pnpm --filter @jfa/worker deploy --prod /tmp/worker-prod
+          export DATABASE_URL=postgres://postgres:postgres@localhost:5432/jfa_test ENCRYPTION_KEY=ci-encryption-key-1234567890
+          (cd /tmp/api-prod && PORT=4900 JWT_SECRET=ci-jwt-secret-1234567890 node dist/main.js > /tmp/api.log 2>&1 &)
+          (cd /tmp/worker-prod && HEALTH_PORT=4901 MIGRATE_ON_START=false node dist/main.js > /tmp/worker.log 2>&1 &)
+          for i in $(seq 1 30); do curl -sf localhost:4900/api/health && curl -sf localhost:4901 && exit 0; sleep 2; done
+          cat /tmp/api.log /tmp/worker.log; exit 1
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
