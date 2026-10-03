@@ -24,7 +24,9 @@ export function toGeminiSchema(schema: z.ZodType): Record<string, unknown> {
   return json;
 }
 
-export interface VertexOptions {
+export interface GeminiOptions {
+  /** Gemini Developer API key (AI Studio). When set, Vertex settings are ignored. */
+  apiKey?: string;
   /** Service account key JSON (raw or base64). Omit to use Application Default Credentials on GCP. */
   credentialsJson?: string;
   project?: string;
@@ -35,14 +37,20 @@ export interface VertexOptions {
 }
 
 /**
- * Gemini on Vertex AI. Same contract as the Claude client: JSON constrained by the
+ * Gemini, through the Gemini API with an API key or through Vertex AI (Agent Platform)
+ * with a service account. Same contract as the Claude client: JSON constrained by the
  * request's Zod schema, validated again on return, with usage reported per call.
  */
-export class VertexGeminiLlm implements LlmClient {
+export class GeminiLlm implements LlmClient {
   private readonly ai: GoogleGenAI;
   readonly model: string;
 
-  constructor(private readonly opts: VertexOptions) {
+  constructor(private readonly opts: GeminiOptions) {
+    this.model = opts.model ?? DEFAULT_VERTEX_MODEL;
+    if (opts.apiKey) {
+      this.ai = new GoogleGenAI({ apiKey: opts.apiKey });
+      return;
+    }
     const credentials = opts.credentialsJson ? (JSON.parse(decodeCredentials(opts.credentialsJson)) as { project_id?: string }) : undefined;
     const project = opts.project ?? credentials?.project_id;
     if (!project) throw new LlmError("Vertex AI needs a project id (VERTEX_PROJECT or a service account key)", false);
@@ -52,7 +60,6 @@ export class VertexGeminiLlm implements LlmClient {
       location: opts.location ?? "global",
       googleAuthOptions: credentials ? { credentials: credentials as never } : undefined,
     });
-    this.model = opts.model ?? DEFAULT_VERTEX_MODEL;
   }
 
   async generate<S extends z.ZodType>(req: LlmRequest<S>): Promise<{ data: z.infer<S>; usage: LlmUsage }> {
@@ -87,9 +94,14 @@ export class VertexGeminiLlm implements LlmClient {
     } catch (err) {
       const msg = (err as Error).message ?? String(err);
       const status = Number((err as { status?: number }).status ?? msg.match(/"code":\s*(\d{3})/)?.[1] ?? 0);
-      if (status === 429 || status >= 500) throw new LlmError(`Vertex AI temporarily unavailable: ${msg.slice(0, 200)}`, true);
-      if (status === 401 || status === 403) throw new LlmError(`Vertex AI permission denied. Grant the service account "Vertex AI User" and enable the Vertex AI API. ${msg.slice(0, 160)}`, false);
-      throw new LlmError(`Vertex AI request failed: ${msg.slice(0, 300)}`, false);
+      if (status === 429 || status >= 500) throw new LlmError(`Gemini temporarily unavailable: ${msg.slice(0, 200)}`, true);
+      if (status === 401 || status === 403) throw new LlmError(
+          this.opts.apiKey
+            ? `Gemini API key rejected. Use a key from AI Studio, or allow "Generative Language API" in the key's API restrictions. ${msg.slice(0, 160)}`
+            : `Agent Platform (Vertex AI) permission denied. Grant the service account "Agent Platform User" (roles/aiplatform.user). ${msg.slice(0, 160)}`,
+          false,
+        );
+      throw new LlmError(`Gemini request failed: ${msg.slice(0, 300)}`, false);
     }
 
     const meta = response.usageMetadata;

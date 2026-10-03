@@ -21,8 +21,10 @@ const EnvSchema = z.object({
   COOKIE_SECURE: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   CLAUDE_MODEL: z.string().default("claude-sonnet-5-5"),
-  /** "anthropic" (Claude API key) or "vertex" (Gemini on Vertex AI with the service account). */
-  LLM_PROVIDER: z.enum(["anthropic", "vertex"]).default("anthropic"),
+  /** "anthropic" (Claude API key), "gemini" (Gemini API key) or "vertex" (Gemini on Agent Platform with the service account). */
+  LLM_PROVIDER: z.enum(["anthropic", "gemini", "vertex"]).default("anthropic"),
+  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_MODEL: z.string().optional(),
   VERTEX_MODEL: z.string().optional(),
   VERTEX_LOCATION: z.string().optional(),
   VERTEX_PROJECT: z.string().optional(),

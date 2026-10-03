@@ -119,7 +119,8 @@ All settings are environment variables. See [`.env.example`](.env.example) for t
 | `JWT_SECRET` | api | Signs session cookies and OAuth state. |
 | `OWNER_EMAIL`, `OWNER_PASSWORD` | api | Seeds the owner account. Set `ALLOW_SETUP=false` in production. |
 | `ANTHROPIC_API_KEY` | api, worker | Optional fallback; a key saved in Settings wins. |
-| `LLM_PROVIDER` | api, worker | `anthropic` (default) or `vertex` for Gemini on Vertex AI. |
+| `LLM_PROVIDER` | api, worker | `anthropic` (default), `gemini` (Gemini API key) or `vertex` (Gemini on Agent Platform, formerly Vertex AI). |
+| `GEMINI_API_KEY`, `GEMINI_MODEL` | api, worker | Gemini API key and model (default `gemini-2.5-flash-lite`). |
 | `VERTEX_MODEL`, `VERTEX_LOCATION`, `VERTEX_PROJECT`, `VERTEX_CREDENTIALS_JSON` | api, worker | Vertex settings. Defaults: `gemini-2.5-flash-lite`, `global`, the key's project, and `GCS_CREDENTIALS_JSON`. |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | api, worker | Gmail OAuth client. |
 | `API_PUBLIC_URL` | api | Public base URL of the API, used for the Gmail redirect. |
@@ -165,10 +166,14 @@ You get a summary after every run and an alert when a reply needs you.
 3. Create a JSON key for it.
 4. Set `GCS_BUCKET` and `GCS_CREDENTIALS_JSON` (paste the JSON, or `base64 -w0 key.json`) on the API and the worker. On GCP (Cloud Run, GKE) leave `GCS_CREDENTIALS_JSON` empty and grant the runtime service account access instead.
 
-### Gemini on Vertex AI instead of Claude
+### Gemini instead of Claude
 
-1. In the Google Cloud project, enable the **Vertex AI API**.
-2. Grant the service account the **Vertex AI User** role (the storage service account works; it then needs both roles).
+**With an API key (simplest).** Create a key at [AI Studio](https://aistudio.google.com/apikey) (or a Cloud API key whose API restrictions include **Generative Language API**), then set `LLM_PROVIDER=gemini` and `GEMINI_API_KEY` on the API and the worker.
+
+**With a service account (Agent Platform, formerly Vertex AI).**
+
+1. In the Google Cloud project, enable the **Agent Platform API** (`aiplatform.googleapis.com`).
+2. Grant the service account the **Agent Platform User** role (`roles/aiplatform.user`) (the storage service account works; it then needs both roles).
 3. Set `LLM_PROVIDER=vertex` on the API and the worker. The key comes from `VERTEX_CREDENTIALS_JSON` or, if empty, `GCS_CREDENTIALS_JSON`. `VERTEX_MODEL` defaults to `gemini-2.5-flash-lite`, the cheapest option; Settings then shows the model instead of the Claude key form.
 
 ### Cloudflare R2 or another S3-compatible store
