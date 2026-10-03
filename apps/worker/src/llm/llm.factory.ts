@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { ClaudeLlm, FakeLlm, decryptJson, type LlmClient, type LlmUsage } from "@jfa/core";
+import { FakeLlm, createLlm, decryptJson, llmProvider, type LlmClient, type LlmUsage } from "@jfa/core";
 import { pipelineFakeHandlers } from "@jfa/pipeline";
 import { and, credentials, eq, isNull, runs, sql, tokenUsage, type Db } from "@jfa/db";
 import { CONFIG, type WorkerConfig } from "../config";
@@ -27,13 +27,12 @@ export class LlmFactory {
     return this.config.ANTHROPIC_API_KEY ?? null;
   }
 
-  /** Returns a client that records every call's tokens and cost against the run and profile, or null if no key. */
+  /** Returns the configured client (Claude or Gemini on Vertex), recording tokens and cost per run and profile. Null if Claude has no key. */
   async create(scope: UsageScope): Promise<LlmClient | null> {
     const onUsage = (u: LlmUsage) => this.record(scope, u);
     if (this.config.LLM_FAKE === "1") return new FakeLlm(pipelineFakeHandlers(), onUsage);
-    const key = await this.apiKey(scope.userId);
-    if (!key) return null;
-    return new ClaudeLlm({ apiKey: key, model: this.config.CLAUDE_MODEL, onUsage });
+    const key = llmProvider(this.config) === "anthropic" ? await this.apiKey(scope.userId) : null;
+    return createLlm(this.config, { anthropicKey: key, onUsage });
   }
 
   private async record(scope: UsageScope, u: LlmUsage): Promise<void> {

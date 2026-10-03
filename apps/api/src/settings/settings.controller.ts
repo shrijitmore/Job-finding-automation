@@ -1,5 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, Get, Post, Put } from "@nestjs/common";
-import { maskSecret, sendTelegram, type TelegramConfig } from "@jfa/core";
+import { llmDescription, maskSecret, sendTelegram, type TelegramConfig } from "@jfa/core";
+import { CONFIG, type AppConfig } from "../config";
 import { z } from "zod";
 import { Inject } from "@nestjs/common";
 import { and, eq, gte, profiles, sql, tokenUsage, type Db } from "@jfa/db";
@@ -19,6 +20,7 @@ export class SettingsController {
   constructor(
     private readonly credentials: CredentialsService,
     @Inject(DB) private readonly db: Db,
+    @Inject(CONFIG) private readonly config: AppConfig,
   ) {}
 
   /** Claude token usage and cost per profile and purpose over the last N days. */
@@ -44,7 +46,11 @@ export class SettingsController {
 
   @Get()
   async get(@CurrentUser() user: SessionUser) {
-    return { anthropic: await this.credentials.anthropicStatus(user.id), telegram: await this.telegramStatus(user.id) };
+    return {
+      llm: llmDescription(this.config),
+      anthropic: await this.credentials.anthropicStatus(user.id),
+      telegram: await this.telegramStatus(user.id),
+    };
   }
 
   private async telegramStatus(userId: string) {

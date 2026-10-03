@@ -8,6 +8,7 @@ import { api } from "@/lib/api";
 import { formatUsd } from "@/lib/format";
 
 interface SettingsResponse {
+  llm: { provider: "anthropic" | "vertex"; model: string };
   anthropic: { configured: boolean; source: "saved" | "env" | null; masked: string | null };
   telegram: { configured: boolean; chatId: string | null; botToken: string | null };
 }
@@ -135,7 +136,7 @@ function UsageCard() {
   const total = (data ?? []).reduce((s, r) => s + r.costUsd, 0);
   return (
     <Card>
-      <CardHeader title="Claude usage, last 30 days" description={`Total ${formatUsd(total)} across all profiles.`} />
+      <CardHeader title="AI usage, last 30 days" description={`Total ${formatUsd(total)} across all profiles.`} />
       {data?.length ? (
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
@@ -162,7 +163,7 @@ function UsageCard() {
           </table>
         </div>
       ) : (
-        <p className="p-4 text-sm text-zinc-500 sm:p-5">No Claude calls yet.</p>
+        <p className="p-4 text-sm text-zinc-500 sm:p-5">No model calls yet.</p>
       )}
     </Card>
   );
@@ -194,35 +195,45 @@ export function SettingsPage() {
       <div className="space-y-5">
         <GmailCard />
         <TelegramCard status={data.telegram} />
-        <Card>
-          <CardHeader
-            title={<span className="inline-flex items-center gap-2"><KeyRound className="size-4" /> Claude API key</span>}
-            description="Used for parsing, scoring, tailoring, validation and reply classification. Shared by all profiles."
-            actions={a.configured ? <Badge tone="green">{a.source === "env" ? "From server env" : "Saved"} {a.masked}</Badge> : <Badge tone="amber">Not set</Badge>}
-          />
-          <form
-            className="flex flex-wrap items-end gap-2 p-4 sm:p-5"
-            onSubmit={(e: FormEvent) => {
-              e.preventDefault();
-              saveKey.mutate();
-            }}
-          >
-            <Field label={a.source === "saved" ? "Replace key" : "API key"} className="min-w-64 flex-1">
-              <Input type="password" autoComplete="off" placeholder="sk-ant-..." value={key} onChange={(e) => setKey(e.target.value)} />
-            </Field>
-            <Button type="submit" loading={saveKey.isPending} disabled={key.trim().length < 10}>
-              Save key
-            </Button>
-            {a.source === "saved" && (
-              <Button type="button" variant="ghost" loading={removeKey.isPending} onClick={() => removeKey.mutate()}>
-                Remove
+        {data.llm?.provider === "vertex" ? (
+          <Card>
+            <CardHeader
+              title={<span className="inline-flex items-center gap-2"><KeyRound className="size-4" /> AI model</span>}
+              description="Gemini on Google Cloud Vertex AI, using the server's service account. Used for parsing, scoring, tailoring, validation and reply classification."
+              actions={<Badge tone="green">{data.llm.model}</Badge>}
+            />
+          </Card>
+        ) : (
+          <Card>
+            <CardHeader
+              title={<span className="inline-flex items-center gap-2"><KeyRound className="size-4" /> Claude API key</span>}
+              description="Used for parsing, scoring, tailoring, validation and reply classification. Shared by all profiles."
+              actions={a.configured ? <Badge tone="green">{a.source === "env" ? "From server env" : "Saved"} {a.masked}</Badge> : <Badge tone="amber">Not set</Badge>}
+            />
+            <form
+              className="flex flex-wrap items-end gap-2 p-4 sm:p-5"
+              onSubmit={(e: FormEvent) => {
+                e.preventDefault();
+                saveKey.mutate();
+              }}
+            >
+              <Field label={a.source === "saved" ? "Replace key" : "API key"} className="min-w-64 flex-1">
+                <Input type="password" autoComplete="off" placeholder="sk-ant-..." value={key} onChange={(e) => setKey(e.target.value)} />
+              </Field>
+              <Button type="submit" loading={saveKey.isPending} disabled={key.trim().length < 10}>
+                Save key
               </Button>
-            )}
-          </form>
-          <div className="px-4 pb-4 sm:px-5">
-            <ErrorNote error={saveKey.error ?? removeKey.error} />
-          </div>
-        </Card>
+              {a.source === "saved" && (
+                <Button type="button" variant="ghost" loading={removeKey.isPending} onClick={() => removeKey.mutate()}>
+                  Remove
+                </Button>
+              )}
+            </form>
+            <div className="px-4 pb-4 sm:px-5">
+              <ErrorNote error={saveKey.error ?? removeKey.error} />
+            </div>
+          </Card>
+        )}
         <UsageCard />
       </div>
     </>

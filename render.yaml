@@ -24,6 +24,8 @@ services:
         value: "false"
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: LLM_PROVIDER
+        value: anthropic
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET
@@ -53,6 +55,8 @@ services:
         sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: LLM_PROVIDER
+        value: anthropic
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET

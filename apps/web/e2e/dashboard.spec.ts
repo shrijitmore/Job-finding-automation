@@ -65,7 +65,7 @@ test("dry run end to end: run now, dashboard, applications and detail", async ({
 
   // Settings shows token usage per profile.
   await page.goto(`/p/${profileId}/settings`);
-  await expect(page.getByText("Claude usage, last 30 days")).toBeVisible();
+  await expect(page.getByText("AI usage, last 30 days")).toBeVisible();
   await expect(page.getByRole("cell", { name: "tailor", exact: true })).toBeVisible();
 
   // Manual apply shows a direct link and can be marked as applied.

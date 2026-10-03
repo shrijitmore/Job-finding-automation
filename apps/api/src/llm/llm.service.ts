@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import { ClaudeLlm, FakeLlm, defaultFakeHandlers, type LlmClient, type LlmUsage } from "@jfa/core";
+import { FakeLlm, createLlm, defaultFakeHandlers, llmProvider, type LlmClient, type LlmUsage } from "@jfa/core";
 import { tokenUsage, type Db } from "@jfa/db";
 import { CONFIG, type AppConfig } from "../config";
 import { DB } from "../db/db.module";
@@ -13,7 +13,7 @@ export class LlmService {
     private readonly credentials: CredentialsService,
   ) {}
 
-  /** Returns a Claude client that records token usage against the profile. */
+  /** Returns the configured LLM client (Claude or Gemini on Vertex) that records token usage against the profile. */
   async forProfile(userId: string, profileId: string): Promise<LlmClient> {
     const onUsage = async (u: LlmUsage) => {
       await this.db.insert(tokenUsage).values({
@@ -27,8 +27,9 @@ export class LlmService {
       });
     };
     if (this.config.LLM_FAKE === "1") return new FakeLlm(defaultFakeHandlers(), onUsage);
-    const key = await this.credentials.anthropicKey(userId);
-    if (!key) throw new BadRequestException("Add a Claude API key in Settings first");
-    return new ClaudeLlm({ apiKey: key.key, model: this.config.CLAUDE_MODEL, onUsage });
+    const key = llmProvider(this.config) === "anthropic" ? await this.credentials.anthropicKey(userId) : null;
+    const llm = createLlm(this.config, { anthropicKey: key?.key, onUsage });
+    if (!llm) throw new BadRequestException("Add a Claude API key in Settings first");
+    return llm;
   }
 }
