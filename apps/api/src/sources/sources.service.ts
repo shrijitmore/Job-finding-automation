@@ -4,6 +4,8 @@ import { and, asc, eq, isNull, sources, users, type Db, type Source } from "@jfa
 import { PROPOSED_SOURCES, SEED_SOURCES, detectPlugin, isBlockedHost, type SourceSeed } from "@jfa/shared";
 import { DB } from "../db/db.module";
 import { BOSS } from "../queue/queue.module";
+import { CONFIG, type AppConfig } from "../config";
+import { wakeWorker } from "../queue/wake";
 
 export interface CreateSourceInput {
   url: string;
@@ -18,6 +20,7 @@ export class SourcesService {
   constructor(
     @Inject(DB) private readonly db: Db,
     @Inject(BOSS) private readonly boss: PgBoss,
+    @Inject(CONFIG) private readonly config: AppConfig,
   ) {}
 
   /** Adds the default sources the first time an account opens its sources. */
@@ -89,6 +92,7 @@ export class SourcesService {
     await this.get(userId, id);
     const data: SourceScanJob = { sourceId: id };
     const jobId = await this.boss.send(QUEUES.sourceScan, data, { singletonKey: id, retryLimit: 0, expireInSeconds: 900 });
+    wakeWorker(this.config.WORKER_WAKE_URL);
     return { jobId };
   }
 }

@@ -62,7 +62,52 @@ export class S3Storage implements ObjectStorage {
   }
 }
 
+export interface GcsStorageOptions {
+  bucket: string;
+  /** Service account key JSON. When omitted, Application Default Credentials are used (e.g. on GCP). */
+  credentialsJson?: string;
+  /** Optional key prefix, e.g. "prod/". */
+  prefix?: string;
+}
+
+/** Google Cloud Storage. */
+export class GcsStorage implements ObjectStorage {
+  private readonly bucketPromise: Promise<import("@google-cloud/storage").Bucket>;
+
+  constructor(private readonly opts: GcsStorageOptions) {
+    this.bucketPromise = import("@google-cloud/storage").then(({ Storage }) => {
+      const creds = opts.credentialsJson ? (JSON.parse(decodeCredentials(opts.credentialsJson)) as { project_id?: string }) : undefined;
+      const storage = new Storage(creds ? { credentials: creds as never, projectId: creds.project_id } : {});
+      return storage.bucket(opts.bucket);
+    });
+  }
+
+  private key(k: string) {
+    return `${this.opts.prefix ?? ""}${k}`;
+  }
+
+  async put(key: string, body: Buffer, contentType: string): Promise<void> {
+    const bucket = await this.bucketPromise;
+    await bucket.file(this.key(key)).save(body, { contentType, resumable: false });
+  }
+
+  async get(key: string): Promise<Buffer> {
+    const bucket = await this.bucketPromise;
+    const [data] = await bucket.file(this.key(key)).download();
+    return data;
+  }
+}
+
+/** Accepts the service account JSON as raw JSON or base64 (easier to paste into env vars). */
+export function decodeCredentials(value: string): string {
+  const t = value.trim();
+  return t.startsWith("{") ? t : Buffer.from(t, "base64").toString("utf8");
+}
+
 export function createStorageFromEnv(env: NodeJS.ProcessEnv = process.env): ObjectStorage {
+  if (env.GCS_BUCKET) {
+    return new GcsStorage({ bucket: env.GCS_BUCKET, credentialsJson: env.GCS_CREDENTIALS_JSON || undefined, prefix: env.GCS_PREFIX || undefined });
+  }
   if (env.S3_BUCKET && env.S3_ACCESS_KEY_ID && env.S3_SECRET_ACCESS_KEY) {
     return new S3Storage({
       bucket: env.S3_BUCKET,
