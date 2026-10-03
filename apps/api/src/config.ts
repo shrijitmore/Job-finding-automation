@@ -21,6 +21,13 @@ const EnvSchema = z.object({
   COOKIE_SECURE: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   CLAUDE_MODEL: z.string().default("claude-sonnet-5-5"),
+  /** "anthropic" (Claude API key) or "vertex" (Gemini on Vertex AI with the service account). */
+  LLM_PROVIDER: z.enum(["anthropic", "vertex"]).default("anthropic"),
+  VERTEX_MODEL: z.string().optional(),
+  VERTEX_LOCATION: z.string().optional(),
+  VERTEX_PROJECT: z.string().optional(),
+  VERTEX_CREDENTIALS_JSON: z.string().optional(),
+  GCS_CREDENTIALS_JSON: z.string().optional(),
   LLM_FAKE: z.string().optional(),
   /** Optional URL of the worker's health endpoint. Pinged on Run now so a sleeping free-tier worker wakes up. */
   WORKER_WAKE_URL: z.string().optional(),

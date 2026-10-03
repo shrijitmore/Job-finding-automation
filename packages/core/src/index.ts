@@ -8,3 +8,5 @@ export * from "./fixtures";
 export * from "./fake-handlers";
 export * from "./gmail";
 export * from "./telegram";
+export * from "./gemini";
+export * from "./llm-factory";
