@@ -156,6 +156,20 @@ describe("generic extractor", () => {
     expect(ctx2.calls.filter((c) => c.includes("chainco"))).toHaveLength(0);
   });
 
+  it("stops following detail pages once the time budget is used up", async () => {
+    const routes = {
+      [url]: fixture("web3career.html"),
+      "https://web3.career/senior-solidity-chainco/1": fixture("detail-jsonld.html"),
+      "https://web3.career/infrastructure-engineer-wintermute-trading/154823": "<html><body><main><h1>Infrastructure Engineer</h1><p>Run our trading infra.</p></main></body></html>",
+    };
+    let clock = 0;
+    const ctx = makeCtx({ plugin: "generic", url, fields: ["web3"] }, routes, { llm: new FakeLlm({ job_extract: extract }) });
+    // The clock moves 30s per check: the first listing is inside the 45s budget, the second is not.
+    const out = await scrapeSource({ ...ctx, detailBudgetMs: 45_000, now: () => (clock += 30_000) }, NOW);
+    expect(out.jobs).toHaveLength(2);
+    expect(ctx.calls.filter((c) => /chainco\/1|wintermute/.test(c))).toHaveLength(1);
+  });
+
   it("switches to the ATS JSON when a career page embeds a board", async () => {
     expect(findEmbeddedBoard(fixture("career-page-embed.html"))).toBe("https://job-boards.greenhouse.io/bloomhq");
     // A board that links many companies' ATS pages is not a career page.

@@ -2,11 +2,19 @@ import { type DynamicModule, Global, Inject, Logger, Module, type OnApplicationS
 import { createBoss, createStorageFromEnv, ensureQueues, type ObjectStorage, type PgBoss } from "@jfa/core";
 import { createDb, type Db, type DbHandle } from "@jfa/db";
 import { CONFIG, type WorkerConfig } from "./config";
+import { KeepAwake } from "./keep-awake";
 
 export const DB = Symbol("DB");
 export const DB_HANDLE = Symbol("DB_HANDLE");
 export const BOSS = Symbol("BOSS");
 export const STORAGE = Symbol("STORAGE");
+export const KEEP_AWAKE = Symbol("KEEP_AWAKE");
+
+/** KEEP_AWAKE_URL, or the public URL Render gives every web service. */
+export function keepAwakeUrl(config: Pick<WorkerConfig, "KEEP_AWAKE_URL" | "RENDER_EXTERNAL_URL">): string | undefined {
+  if (config.KEEP_AWAKE_URL) return config.KEEP_AWAKE_URL;
+  return config.RENDER_EXTERNAL_URL ? `${config.RENDER_EXTERNAL_URL.replace(/\/$/, "")}/health` : undefined;
+}
 
 @Global()
 @Module({})
@@ -27,8 +35,9 @@ export class InfraModule implements OnModuleInit, OnApplicationShutdown {
         { provide: DB, inject: [DB_HANDLE], useFactory: (h: DbHandle): Db => h.db },
         { provide: BOSS, useFactory: () => createBoss(config.DATABASE_URL) },
         { provide: STORAGE, useFactory: (): ObjectStorage => createStorageFromEnv() },
+        { provide: KEEP_AWAKE, useFactory: () => new KeepAwake(keepAwakeUrl(config)) },
       ],
-      exports: [CONFIG, DB, DB_HANDLE, BOSS, STORAGE],
+      exports: [CONFIG, DB, DB_HANDLE, BOSS, STORAGE, KEEP_AWAKE],
     };
   }
 

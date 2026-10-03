@@ -1,9 +1,10 @@
 import { Inject, Injectable, Logger, type OnModuleInit } from "@nestjs/common";
-import { QUEUES, type PgBoss, type ProfileRunJob, type ScheduledTickJob } from "@jfa/core";
+import { PROFILE_RUN_HEARTBEAT_SECONDS, QUEUES, type PgBoss, type ProfileRunJob, type ScheduledTickJob } from "@jfa/core";
 import { eq, profiles, type Db } from "@jfa/db";
 import { cronForTime, dateInTz } from "@jfa/shared";
 import { CONFIG, type WorkerConfig } from "../config";
-import { BOSS, DB } from "../infra.module";
+import type { KeepAwake } from "../keep-awake";
+import { BOSS, DB, KEEP_AWAKE } from "../infra.module";
 import { ProfileRunService, RunBusyError } from "./profile-run.service";
 
 /**
@@ -20,16 +21,19 @@ export class SchedulerService implements OnModuleInit {
     @Inject(DB) private readonly db: Db,
     @Inject(CONFIG) private readonly config: WorkerConfig,
     private readonly runner: ProfileRunService,
+    @Inject(KEEP_AWAKE) private readonly keepAwake: KeepAwake,
   ) {}
 
   async onModuleInit(): Promise<void> {
     await this.boss.work<ProfileRunJob>(QUEUES.profileRun, { localConcurrency: this.config.WORKER_CONCURRENCY }, async ([job]) => {
-      try {
-        await this.runner.execute(job.data);
-      } catch (err) {
-        if (err instanceof RunBusyError) this.logger.warn(err.message);
-        throw err;
-      }
+      await this.keepAwake.during(async () => {
+        try {
+          await this.runner.execute(job.data);
+        } catch (err) {
+          if (err instanceof RunBusyError) this.logger.warn(err.message);
+          throw err;
+        }
+      });
     });
     await this.boss.work<ScheduledTickJob>(QUEUES.scheduledTick, async ([job]) => this.tick(job.data));
     await this.boss.work(QUEUES.syncSchedules, async () => this.syncAll());
@@ -47,6 +51,7 @@ export class SchedulerService implements OnModuleInit {
       retryDelay: 600,
       retryBackoff: true,
       expireInSeconds: 3 * 3600,
+      heartbeatSeconds: PROFILE_RUN_HEARTBEAT_SECONDS,
     });
   }
 

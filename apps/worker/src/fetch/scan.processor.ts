@@ -1,7 +1,8 @@
 import { Inject, Injectable, Logger, type OnModuleInit } from "@nestjs/common";
 import { QUEUES, type PgBoss, type SourceScanJob } from "@jfa/core";
 import { eq, sources, type Db } from "@jfa/db";
-import { BOSS, DB } from "../infra.module";
+import type { KeepAwake } from "../keep-awake";
+import { BOSS, DB, KEEP_AWAKE } from "../infra.module";
 import { LlmFactory } from "../llm/llm.factory";
 import { FetchService } from "./fetch.service";
 
@@ -15,11 +16,14 @@ export class ScanProcessor implements OnModuleInit {
     @Inject(DB) private readonly db: Db,
     private readonly fetch: FetchService,
     private readonly llm: LlmFactory,
+    @Inject(KEEP_AWAKE) private readonly keepAwake: KeepAwake,
   ) {}
 
   async onModuleInit(): Promise<void> {
     await this.boss.work<SourceScanJob>(QUEUES.sourceScan, { localConcurrency: 2 }, async (batch) => {
-      for (const job of batch) await this.scan(job.data.sourceId);
+      await this.keepAwake.during(async () => {
+        for (const job of batch) await this.scan(job.data.sourceId);
+      });
     });
   }
 

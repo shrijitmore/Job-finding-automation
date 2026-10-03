@@ -11,6 +11,13 @@ export const QUEUES = {
   sourceScan: "source-scan",
 } as const;
 
+/**
+ * Profile runs heartbeat while they work. If the worker dies or its host puts it to sleep,
+ * pg-boss fails the job after this long and the retry resumes the same run, instead of the
+ * job sitting "active" until it expires hours later.
+ */
+export const PROFILE_RUN_HEARTBEAT_SECONDS = 300;
+
 export interface ProfileRunJob {
   profileId: string;
   trigger: "schedule" | "manual";

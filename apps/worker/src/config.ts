@@ -18,7 +18,12 @@ const EnvSchema = z.object({
   CHROMIUM_PATH: z.string().optional(),
   SCRAPE_MIN_DELAY_MS: z.coerce.number().default(2000),
   SCRAPE_MAX_DELAY_MS: z.coerce.number().default(5000),
+  /** Per source time spent following job detail pages. Small hosts render pages slowly. */
+  SCRAPE_DETAIL_BUDGET_MS: z.coerce.number().default(120_000),
   WORKER_CONCURRENCY: z.coerce.number().default(1),
+  /** Pinged while jobs run so free hosts don't put the worker to sleep mid-run. */
+  KEEP_AWAKE_URL: z.string().url().optional(),
+  RENDER_EXTERNAL_URL: z.string().url().optional(),
   LLM_FAKE: z.string().optional(),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),

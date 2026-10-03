@@ -94,9 +94,17 @@ export const genericPlugin: SourcePlugin = {
     // Follow each new listing to its detail page for the full JD.
     const out: RawListing[] = [];
     let details = 0;
+    const now = ctx.now ?? Date.now;
+    const deadline = ctx.detailBudgetMs ? now() + ctx.detailBudgetMs : Infinity;
+    let budgetLogged = false;
     for (const l of listings) {
       const ownPage = canonicalUrl(l.url) !== canonicalUrl(page.url);
-      if (!ownPage || details >= ctx.maxDetails || (await ctx.isKnown(l.url)) || l.description.length > 1500) {
+      const outOfTime = now() >= deadline;
+      if (outOfTime && ownPage && !budgetLogged) {
+        budgetLogged = true;
+        ctx.log.info(`Detail page time budget used up after ${details} pages; keeping listing summaries for the rest`);
+      }
+      if (!ownPage || outOfTime || details >= ctx.maxDetails || (await ctx.isKnown(l.url)) || l.description.length > 1500) {
         out.push(l);
         continue;
       }
